@@ -1,0 +1,128 @@
+aliveMonitoringInfo:
+  type: object
+  description: 路側機の死活情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 路側機死活情報要素
+      required:
+        - serviceLocationID
+        - roadsideUnitID
+        - updateTimeInfo
+        - formatVersion
+        - operationClassificationCode
+        - serviceAvailability
+        - deviceClassificationNum
+        - deviceClassificationAliveInfo
+      properties:
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        roadsideUnitID:
+          type: integer
+          format: int64
+          description: 路側機ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        operationClassificationCode:
+          type: integer
+          format: int32
+          description: 路側機運用区分コード
+          minimum: 0
+          maximum: 1
+          example: 0
+        serviceAvailability:
+          type: integer
+          format: int32
+          description: サービス提供可否
+          minimum: 0
+          maximum: 2
+          example: 0
+        deviceClassificationNum:
+          type: integer
+          format: int32
+          description: 路側機接続機器種別数
+          minimum: 0
+          maximum: 15
+          example: 3
+        deviceClassificationAliveInfo:
+          type: array
+          minItems: 0
+          maxItems: 15
+          items:
+            type: object
+            required:
+              - deviceClassification
+              - deviceNum
+              - deviceAliveInfo
+            properties:
+              deviceClassification:
+                type: integer
+                format: int32
+                description: 路側機接続機器種別
+                minimum: 0
+                maximum: 2
+                example: 1
+              deviceNum:
+                type: integer
+                format: int32
+                description: 接続機器数
+                minimum: 0
+                maximum: 15
+                example: 3
+              deviceAliveInfo:
+                type: array
+                minItems: 0
+                maxItems: 15
+                items:
+                  type: object
+                  required:
+                    - deviceID
+                    - deviceOperationStatus
+                    - deviceAliveStatus
+                  properties:
+                    deviceID:
+                      type: integer
+                      format: int32
+                      description: 機器識別ID
+                      minimum: 0
+                      maximum: 16777215
+                      example: 12345678
+                    deviceOperationStatus:
+                      type: integer
+                      format: int32
+                      description: 接続機器運用状態
+                      minimum: 0
+                      maximum: 1
+                      example: 0
+                    deviceAliveStatus:
+                      type: integer
+                      format: int32
+                      description: 接続機器稼動状態
+                      minimum: 0
+                      maximum: 2
+                      example: 0

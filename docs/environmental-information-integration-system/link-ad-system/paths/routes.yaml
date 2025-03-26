@@ -1,0 +1,45 @@
+routes:
+  get:
+    tags:
+      - routes
+    description: 走行経路のデータを取得。
+    parameters:
+      - name: route_id
+        in: query
+        required: true
+        description: The route identifier.
+        schema:
+          type: string
+          format: uuid
+        example: d1dbbec4-8eeb-4683-9079-9801adb86d98
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/routes.yaml#/routes"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"

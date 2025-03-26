@@ -1,0 +1,109 @@
+useCaseInfo:
+  type: object
+  description: ユースケース情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: ユースケース情報要素
+      required:
+        - serviceLocationID
+        - roadsideUnitID
+        - updateTimeInfo
+        - formatVersion
+        - useCaseInfo
+      properties:
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        roadsideUnitID:
+          type: integer
+          format: int64
+          description: 路側機ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        useCaseInfo:
+          type: array
+          minItems: 0
+          maxItems: 255
+          items:
+            type: object
+            required:
+              - useCaseNum
+              - useCaseClassificationInfo
+            properties:
+              useCaseNum:
+                type: integer
+                format: int32
+                description: ユースケース数
+                minimum: 0
+                maximum: 255
+                example: 1
+              useCaseClassificationInfo:
+                type: array
+                minItems: 0
+                maxItems: 255
+                items:
+                  type: object
+                  required:
+                    - useCaseType
+                    - targetUtilizationType
+                  properties:
+                    useCaseType:
+                      type: integer
+                      format: int32
+                      description: 対象ユースケース類型
+                      minimum: 0
+                      maximum: 255
+                      example: 1
+                    useCaseSupplementaryCode:
+                      type: integer
+                      format: int32
+                      description: ユースケースによって類型がさらに分類できる場合の補足情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    targetUtilizationType:
+                      type: integer
+                      format: int32
+                      description: 路側センサの性能低下を動的に把握可能な場合，本情報を動的に変化させてもよい
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    targetDirection:
+                      type: integer
+                      format: int32
+                      description: 物標情報を提供するサービスの場合の対象(センサ検知エリアの主対象)の方路IDの該当ビットを1にする
+                      minimum: 0
+                      maximum: 65534
+                      example: 12345
+                    targetSensorNumber:
+                      type: integer
+                      format: int32
+                      description: 物標情報を提供するサービスの場合の対象センサについて，センサ情報の並び順と合致するよう該当ビットを1にする
+                      minimum: 0
+                      maximum: 65535
+                      example: 12

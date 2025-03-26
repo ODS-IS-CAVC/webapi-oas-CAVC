@@ -1,0 +1,52 @@
+bus-stops:
+  required:
+  - dataModelType
+  - attribute
+  type: object
+  description: 乗降地(バス停)一覧データ
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: array
+      description: 乗降地(バス停)一覧のデータモデル
+      items:
+        type: object
+        description: 乗降地(バス停)のデータ
+        properties:
+          busStopId:
+            type: integer
+            description: バス停ID
+            minimum: 1
+            maximum: 255 #設定ない
+            example: 1
+          busStopName:
+            type: string
+            description: バス停名
+            example: FirstBusStop
+          location:
+            type: object
+            description: バス停の位置情報
+            required:
+              - lat
+              - lng
+            properties:
+              lat:
+                type: number
+                description: 緯度
+                format: double
+                minimum: -90
+                maximum: 90
+                example: 35.6242681254456
+              lng:
+                type: number
+                description: 経度
+                format: double
+                minimum: -180
+                maximum: 180
+                example: 139.74258640456

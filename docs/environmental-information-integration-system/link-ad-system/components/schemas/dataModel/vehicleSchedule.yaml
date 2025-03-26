@@ -1,0 +1,36 @@
+vehicle-schedule:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: 自動運転車両のスケジュール登録に必用なデータ
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 自動運転車両のスケジュールのデータモデル
+      required:
+        - vehicleId
+        - destinationPoints
+      properties:
+        vehicleId:
+          type: string
+          format: uuid 
+          description: 自動運転車両のID
+          example: "78aa302c-1600-44b3-a331-e4659c0b28a1"
+        destinationPoints:
+          type: array
+          minItems: 1
+          maxItems: 10
+          description: 目的地のバス停IDの配列
+          items:
+            type: integer
+            description: バス停ID
+            example: 1
+                

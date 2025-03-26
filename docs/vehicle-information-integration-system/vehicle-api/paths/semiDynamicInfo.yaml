@@ -1,0 +1,112 @@
+get:
+      tags:
+      - 車両情報連携システム
+      description: 準動的情報取得
+      parameters:
+      - name: encodedData
+        in: query
+        required: true
+        schema:
+          type: string
+        description: |
+          URLエンコードされたJSONデータ。
+          パラメータ詳細は [こちら](./pages/getSemiDynamicInfo.html)を参照してください。
+      responses: #異常系のレスポンスは要検討
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../components/schemas/dataModel/semiDynamicInfo.yaml#/semiDynamicInfo"
+        "400":
+          description: パラメータエラー
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -2
+                  targetTime:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: XXXは必須入力パラメータです。
+        "401":
+          description: アクセストークン切れによるユーザー認証失敗が発生した場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -3
+                  targetTime:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: ユーザー認証に失敗しました。
+        "403":
+          description: 検索対象の情報にアクセス権がない場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -3
+                  targetTime:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: アクセス権限が確認できませんでした。
+        "500":
+          description: 外部APIとの通信失敗やデータベースアクセスエラーなどのシステムエラーの場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -1
+                  targetTime:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: XXXの通信に失敗しました。

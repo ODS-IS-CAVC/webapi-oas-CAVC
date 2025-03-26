@@ -1,0 +1,1005 @@
+shipper_trans_capacity:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: "運送能力情報のデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+
+    attribute:
+        type: object
+        properties:
+          msg_info:
+            type: object
+            description: メッセージ情報
+            properties:
+              msg_id:
+                type: number
+                description: データ処理ＮＯ．
+                example: "1"                    
+              msg_info_cls_typ_cd:
+                type: string
+                description: 情報区分コード
+                example: "5001"                    
+              msg_date_iss_dttm:
+                type: string
+                description: データ作成日
+                example: "20241024"
+              msg_time_iss_dttm:
+                type: number
+                description: データ作成時刻
+                example: "134351"
+              msg_fn_stas_cd:
+                type: string
+                description: 訂正コード
+                example: "1"
+              note_dcpt_txt:
+                type: string
+                description: 備考（漢字）
+                example: "null"
+                            
+          trsp_ability_line_item:
+            type: array
+            description: 運送能力明細
+            items:
+              type: object
+              properties:
+                road_carr:
+                  type: object
+                  description: 運送事業者
+                  properties:
+                    trsp_cli_prty_head_off_id:
+                      type: string
+                      description: 運送事業者コード（本社）
+                      example: "1234567890123"
+                    trsp_cli_prty_brnc_off_id:
+                      type: string
+                      description: 運送事業者コード（事業所）
+                      example: "12345678901234567"
+                    trsp_cli_prty_name_txt:
+                      type: string
+                      description: 運送事業者名（漢字）
+                      example: "null"
+                    road_carr_depa_sped_org_id:
+                      type: string
+                      description: 運送事業者発店コード
+                      example: "null"
+                    road_carr_depa_sped_org_name_txt:
+                      type: string
+                      description: 運送事業者発店名（漢字）
+                      example: "null"
+                    trsp_cli_tel_cmm_cmp_num_txt:
+                      type: string
+                      description: 運送事業者電話番号
+                      example: "null"
+                    road_carr_arr_sped_org_id:
+                      type: string
+                      description: 運送事業者着店コード
+                      example: "null"
+                    road_carr_arr_sped_org_name_txt:
+                      type: string
+                      description: 運送事業者着店名（漢字）
+                      example: "null"
+                      
+                  required:
+                  - trsp_cli_prty_head_off_id
+                  - trsp_cli_prty_brnc_off_id
+
+                logs_srvc_prv:
+                  type: object
+                  description: 物流サービス提供者
+                  properties:
+                    logs_srvc_prv_prty_head_off_id:
+                      type: string
+                      description: 物流サービス提供者コード（本社）
+                      example: "null"
+                    logs_srvc_prv_prty_brnc_off_id:
+                      type: string
+                      description: 物流サービス提供者コード（事業所）
+                      example: "null"
+                    logs_srvc_prv_prty_name_txt:
+                      type: string
+                      description: 物流サービス提供者名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_sped_org_id:
+                      type: string
+                      description: 物流サービス提供者部門コード
+                      example: "null"
+                    logs_srvc_prv_sct_sped_org_name_txt:
+                      type: string
+                      description: 物流サービス提供者部門名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_prim_cnt_pers_name_txt:
+                      type: string
+                      description: 物流サービス提供者担当者名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_tel_cmm_cmp_num_txt:
+                      type: string
+                      description: 物流サービス提供者電話番号
+                      example: "null"
+                
+                car_info:
+                  type: array
+                  description: 車輌情報
+                  items:
+                    type: object
+                    properties:
+                      service_no:
+                        type: string
+                        description: 便・ダイヤ番号
+                        example: "123456789012345678901234"
+                      service_name:
+                        type: string
+                        description: 便・ダイヤ名称
+                        example: "12345678901234567890"
+                      service_strt_date:
+                        type: string
+                        description: 便の運行日
+                        example: "20220101"
+                      service_strt_time:
+                        type: string
+                        description: 便の運行時刻
+                        example: "0000"
+                      service_end_date:
+                        type: string
+                        description: 便の運行終了日
+                        example: "null"
+                      service_end_time:
+                        type: string
+                        description: 便の運行終了時刻
+                        example: "null"
+                      freight_rate:
+                        type: number
+                        description: 希望運賃
+                        example: "1234567890"
+                      car_ctrl_num_id:
+                        type: string
+                        description: 車輌番号
+                        example: "12345678901234567890"
+                      car_license_plt_num_id:
+                        type: string
+                        description: 自動車登録番号
+                        example: "null"
+                      giai:
+                        type: string
+                        description: GIAI
+                        example: "1234567890123456789012345678901234"
+                      car_body_num_cd:
+                        type: string
+                        description: 車台番号
+                        example: "null"
+                      car_cls_of_size_cd:
+                        type: string
+                        description: 車輌種別
+                        example: "null"
+                      tractor_idcr:
+                        type: string
+                        description: トラクタ（けん引車）
+                        example: "null"
+                      trailer_license_plt_num_id:
+                        type: string
+                        description: トレーラ（被けん引車）
+                        example: "null"
+                      car_weig_meas:
+                        type: number
+                        description: 車輌重量
+                        example: "null"
+                      car_lngh_meas:
+                        type: number
+                        description: 車輌長さ
+                        example: "null"
+                      car_wid_meas:
+                        type: number
+                        description: 車輌幅
+                        example: "null"
+                      car_hght_meas:
+                        type: number
+                        description: 車輌高さ
+                        example: "null"
+                      car_max_load_capacity1_meas:
+                        type: number
+                        description: 最大積載量1
+                        example: "123456"
+                      car_max_load_capacity2_meas:
+                        type: number
+                        description: 最大積載量2
+                        example: "null"
+                      car_vol_of_hzd_item_meas:
+                        type: number
+                        description: 危険物容積
+                        example: "null"
+                      car_spc_grv_of_hzd_item_meas:
+                        type: number
+                        description: 危険物比重
+                        example: "null"
+                      car_trk_bed_hght_meas:
+                        type: number
+                        description: 荷室高さ
+                        example: "null"
+                      car_trk_bed_wid_meas:
+                        type: number
+                        description: 荷室全幅
+                        example: "null"
+                      car_trk_bed_lngh_meas:
+                        type: number
+                        description: 荷室長さ
+                        example: "null"
+                      car_trk_bed_grnd_hght_meas:
+                        type: number
+                        description: 荷台高さ
+                        example: "null"
+                      car_max_load_vol_meas:
+                        type: number
+                        description: 最大積載容量
+                        example: "null"
+                      pcke_frm_cd:
+                        type: string
+                        description: 荷姿コード
+                        example: "null"
+                      pcke_frm_name_cd:
+                        type: string
+                        description: 荷姿名（漢字）
+                        example: "null"
+                      car_max_untl_cp_quan:
+                        type: number
+                        description: 最大積載数
+                        example: "null"
+                      car_cls_of_shp_cd:
+                        type: string
+                        description: 平ボディ/バンボディ
+                        example: "null"
+                      car_cls_of_tlg_lftr_exst_cd:
+                        type: string
+                        description: パワーゲート有無
+                        example: "null"
+                      car_cls_of_wing_body_exst_cd:
+                        type: string
+                        description: ウィング有無
+                        example: "null"
+                      car_cls_of_rfg_exst_cd:
+                        type: string
+                        description: 冷凍・冷蔵設備
+                        example: "null"
+                      trms_of_lwr_tmp_meas:
+                        type: number
+                        description: 温度範囲（下限）
+                        example: "null"
+                      trms_of_upp_tmp_meas:
+                        type: number
+                        description: 温度範囲（上限）
+                        example: "null"
+                      car_cls_of_crn_exst_cd:
+                        type: string
+                        description: クレーン付
+                        example: "null"
+                      car_rmk_about_eqpm_txt:
+                        type: string
+                        description: 車輌設備補足
+                        example: "null"
+                      car_cmpn_name_of_gtp_crtf_exst_txt:
+                        type: string
+                        description: 車輌入門証保有
+                        example: "null"
+                                  
+                      vehicle_avb_resource:
+                        type: array
+                        description: 車輌稼働可能リソース
+                        items:
+                          type: object
+                          properties:
+                            trsp_op_strt_area_line_one_txt:
+                              type: string
+                              description: 運行開始地域
+                              example: "12345678901234567890"
+                            trsp_op_strt_area_cty_jis_cd:
+                              type: string
+                              description: 運行開始地域コード
+                              example: "null"
+                            trsp_op_date_trm_strt_date:
+                              type: string
+                              description: 運行開始日
+                              example: "20241024"
+                            trsp_op_plan_date_trm_strt_time:
+                              type: string
+                              description: 運行開始希望時刻
+                              example: "1416"
+                            trsp_op_end_area_line_one_txt:
+                              type: string
+                              description: 運行終了地域
+                              example: "12345678901234567890"
+                            trsp_op_end_area_cty_jis_cd:
+                              type: string
+                              description: 運行終了地域コード
+                              example: "null"
+                            trsp_op_date_trm_end_date:
+                              type: string
+                              description: 運行終了日
+                              example: "20241025"
+                            trsp_op_plan_date_trm_end_time:
+                              type: string
+                              description: 運行終了希望時刻
+                              example: "1416"
+                            clb_area_txt:
+                              type: string
+                              description: 集荷地域
+                              example: "null"
+                            trms_of_clb_area_cd:
+                              type: string
+                              description: 集荷地域コード
+                              example: "null"
+                            avb_date_cll_date:
+                              type: string
+                              description: 集荷予定日
+                              example: "null"
+                            avb_from_time_of_cll_time:
+                              type: string
+                              description: 集荷開始時間
+                              example: "null"
+                            avb_to_time_of_cll_time:
+                              type: string
+                              description: 集荷終了時間
+                              example: "null"
+                            delb_area_txt:
+                              type: string
+                              description: 配達地域
+                              example: "null"
+                            trms_of_delb_area_cd:
+                              type: string
+                              description: 配達地域コード
+                              example: "null"
+                            esti_del_date_prfm_dttm:
+                              type: string
+                              description: 配達予定日
+                              example: "null"
+                            avb_from_time_of_del_time:
+                              type: string
+                              description: 配達開始時間
+                              example: "null"
+                            avb_to_time_of_del_time:
+                              type: string
+                              description: 配達終了時間
+                              example: "null"
+                            avb_load_cp_of_car_meas:
+                              type: number
+                              description: 積載可能重量(kg)
+                              example: "null"
+                            avb_load_vol_of_car_meas:
+                              type: number
+                              description: 積載可能容積
+                              example: "null"
+                            pcke_frm_cd:
+                              type: string
+                              description: 荷姿コード
+                              example: "null"
+                            avb_num_of_retb_cntn_of_car_quan:
+                              type: number
+                              description: 積載可能輸送容器数
+                              example: "null"
+                            trk_bed_stas_txt:
+                              type: string
+                              description: 荷室状況
+                              example: "null"
+                            cut_off_info:
+                              type: array
+                              description: カットオフ情報
+                              items:
+                                type: object
+                                properties:
+                                  cut_off_time:
+                                    type: string
+                                    description: カットオフ時間
+                                    example: "null"
+                                  cut_off_fee:
+                                    type: string
+                                    description: カットオフ料金
+                                    example: "null"                                        
+                            free_time_info:
+                              type: array
+                              description: フリータイム情報
+                              items:
+                                type: object
+                                properties:
+                                  free_time:
+                                    type: string
+                                    description: フリータイム時間
+                                    example: "null"
+                                  free_time_fee:
+                                    type: string
+                                    description: フリータイム料金
+                                    example: "null"
+                                    
+                          required:
+                          - trsp_op_strt_area_line_one_txt
+                          - trsp_op_date_trm_strt_date
+                          - trsp_op_plan_date_trm_strt_time
+                          - trsp_op_end_area_line_one_txt
+                          - trsp_op_date_trm_end_date
+                          - trsp_op_plan_date_trm_end_time
+
+                    required:
+                    - service_no
+                    - service_name
+                    - service_strt_date
+                    - service_strt_time
+                    - freight_rate
+                    - giai
+                    - car_max_load_capacity1_meas
+                      
+                drv_info:
+                  type: array
+                  description: 運転手情報
+                  items:
+                    type: object
+                    properties:
+                      drv_ctrl_num_id:
+                        type: string
+                        description: 運転手管理コード
+                        example: "null"
+                      drv_cls_of_drvg_license_cd:
+                        type: string
+                        description: 免許種類コード
+                        example: "null"
+                      drv_cls_of_fkl_license_exst_cd:
+                        type: string
+                        description: フォークリフト免許
+                        example: "null"
+                      drv_rmk_about_drv_txt:
+                        type: string
+                        description: その他リソース情報
+                        example: "null"
+                      drv_cmpn_name_of_gtp_crtf_exst_txt:
+                        type: string
+                        description: 運転手入門証保有
+                        example: "null"
+                      drv_avb_time:
+                        type: array
+                        description: 運転手稼働可能時間
+                        items:
+                          type: object
+                          properties:
+                            drv_avb_from_date:
+                              type: string
+                              description: 稼働開始予定日
+                              example: "null"
+                            drv_avb_from_time_of_wrkg_time:
+                              type: string
+                              description: 稼働開始予定時間
+                              example: "null"
+                            drv_avb_to_date:
+                              type: string
+                              description: 稼働終了予定日
+                              example: "null"
+                            drv_avb_to_time_of_wrkg_time:
+                              type: string
+                              description: 稼働終了予定時間
+                              example: "null"
+                            drv_wrkg_trms_txt:
+                              type: string
+                              description: その他稼働条件
+                              example: "null"
+                            drv_frmr_optg_date:
+                              type: string
+                              description: 直前運行日
+                              example: "null"
+                            drv_frmr_op_end_time:
+                              type: string
+                              description: 直前運行終了時間
+                              example: "null"
+
+              required:
+                - road_carr
+                - car_info
+            
+        required:
+          - msg_info
+          - trsp_ability_line_item
+
+shipper_trans_capacity_del:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: "運送能力情報のデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+
+    attribute:
+        type: object
+        properties:
+          msg_info:
+            type: object
+            description: メッセージ情報
+            properties:
+              msg_id:
+                type: number
+                description: データ処理ＮＯ．
+                example: "1"                    
+              msg_info_cls_typ_cd:
+                type: string
+                description: 情報区分コード
+                example: "5001"                    
+              msg_date_iss_dttm:
+                type: string
+                description: データ作成日
+                example: "20241024"
+              msg_time_iss_dttm:
+                type: number
+                description: データ作成時刻
+                example: "134351"
+              msg_fn_stas_cd:
+                type: string
+                description: 訂正コード
+                example: "1"
+              note_dcpt_txt:
+                type: string
+                description: 備考（漢字）
+                example: "null"
+                            
+          trsp_ability_line_item:
+            type: array
+            description: 運送能力明細
+            items:
+              type: object
+              properties:
+                road_carr:
+                  type: object
+                  description: 運送事業者
+                  properties:
+                    trsp_cli_prty_head_off_id:
+                      type: string
+                      description: 運送事業者コード（本社）
+                      example: "1234567890123"
+                    trsp_cli_prty_brnc_off_id:
+                      type: string
+                      description: 運送事業者コード（事業所）
+                      example: "12345678901234567"
+                    trsp_cli_prty_name_txt:
+                      type: string
+                      description: 運送事業者名（漢字）
+                      example: "null"
+                    road_carr_depa_sped_org_id:
+                      type: string
+                      description: 運送事業者発店コード
+                      example: "null"
+                    road_carr_depa_sped_org_name_txt:
+                      type: string
+                      description: 運送事業者発店名（漢字）
+                      example: "null"
+                    trsp_cli_tel_cmm_cmp_num_txt:
+                      type: string
+                      description: 運送事業者電話番号
+                      example: "null"
+                    road_carr_arr_sped_org_id:
+                      type: string
+                      description: 運送事業者着店コード
+                      example: "null"
+                    road_carr_arr_sped_org_name_txt:
+                      type: string
+                      description: 運送事業者着店名（漢字）
+                      example: "null"
+                      
+                  required:
+                  - trsp_cli_prty_head_off_id
+                  - trsp_cli_prty_brnc_off_id
+
+                logs_srvc_prv:
+                  type: object
+                  description: 物流サービス提供者
+                  properties:
+                    logs_srvc_prv_prty_head_off_id:
+                      type: string
+                      description: 物流サービス提供者コード（本社）
+                      example: "null"
+                    logs_srvc_prv_prty_brnc_off_id:
+                      type: string
+                      description: 物流サービス提供者コード（事業所）
+                      example: "null"
+                    logs_srvc_prv_prty_name_txt:
+                      type: string
+                      description: 物流サービス提供者名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_sped_org_id:
+                      type: string
+                      description: 物流サービス提供者部門コード
+                      example: "null"
+                    logs_srvc_prv_sct_sped_org_name_txt:
+                      type: string
+                      description: 物流サービス提供者部門名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_prim_cnt_pers_name_txt:
+                      type: string
+                      description: 物流サービス提供者担当者名（漢字）
+                      example: "null"
+                    logs_srvc_prv_sct_tel_cmm_cmp_num_txt:
+                      type: string
+                      description: 物流サービス提供者電話番号
+                      example: "null"
+                
+                car_info:
+                  type: array
+                  description: 車輌情報
+                  items:
+                    type: object
+                    properties:
+                      service_no:
+                        type: string
+                        description: 便・ダイヤ番号
+                        example: "123456789012345678901234"
+                      service_name:
+                        type: string
+                        description: 便・ダイヤ名称
+                        example: "12345678901234567890"
+                      service_strt_date:
+                        type: string
+                        description: 便の運行日
+                        example: "20220101"
+                      service_strt_time:
+                        type: string
+                        description: 便の運行時刻
+                        example: "0000"
+                      service_end_date:
+                        type: string
+                        description: 便の運行終了日
+                        example: "null"
+                      service_end_time:
+                        type: string
+                        description: 便の運行終了時刻
+                        example: "null"
+                      freight_rate:
+                        type: number
+                        description: 希望運賃
+                        example: "1234567890"
+                      car_ctrl_num_id:
+                        type: string
+                        description: 車輌番号
+                        example: "12345678901234567890"
+                      car_license_plt_num_id:
+                        type: string
+                        description: 自動車登録番号
+                        example: "null"
+                      giai:
+                        type: string
+                        description: GIAI
+                        example: "123456789012345678901234567890"
+                      car_body_num_cd:
+                        type: string
+                        description: 車台番号
+                        example: "null"
+                      car_cls_of_size_cd:
+                        type: string
+                        description: 車輌種別
+                        example: "null"
+                      tractor_idcr:
+                        type: string
+                        description: トラクタ（けん引車）
+                        example: "null"
+                      trailer_license_plt_num_id:
+                        type: string
+                        description: トレーラ（被けん引車）
+                        example: "null"
+                      car_weig_meas:
+                        type: number
+                        description: 車輌重量
+                        example: "null"
+                      car_lngh_meas:
+                        type: number
+                        description: 車輌長さ
+                        example: "null"
+                      car_wid_meas:
+                        type: number
+                        description: 車輌幅
+                        example: "null"
+                      car_hght_meas:
+                        type: number
+                        description: 車輌高さ
+                        example: "null"
+                      car_max_load_capacity1_meas:
+                        type: number
+                        description: 最大積載量1
+                        example: "123456"
+                      car_max_load_capacity2_meas:
+                        type: number
+                        description: 最大積載量2
+                        example: "null"
+                      car_vol_of_hzd_item_meas:
+                        type: number
+                        description: 危険物容積
+                        example: "null"
+                      car_spc_grv_of_hzd_item_meas:
+                        type: number
+                        description: 危険物比重
+                        example: "null"
+                      car_trk_bed_hght_meas:
+                        type: number
+                        description: 荷室高さ
+                        example: "null"
+                      car_trk_bed_wid_meas:
+                        type: number
+                        description: 荷室全幅
+                        example: "null"
+                      car_trk_bed_lngh_meas:
+                        type: number
+                        description: 荷室長さ
+                        example: "null"
+                      car_trk_bed_grnd_hght_meas:
+                        type: number
+                        description: 荷台高さ
+                        example: "null"
+                      car_max_load_vol_meas:
+                        type: number
+                        description: 最大積載容量
+                        example: "null"
+                      pcke_frm_cd:
+                        type: string
+                        description: 荷姿コード
+                        example: "null"
+                      pcke_frm_name_cd:
+                        type: string
+                        description: 荷姿名（漢字）
+                        example: "null"
+                      car_max_untl_cp_quan:
+                        type: number
+                        description: 最大積載数
+                        example: "null"
+                      car_cls_of_shp_cd:
+                        type: string
+                        description: 平ボディ/バンボディ
+                        example: "null"
+                      car_cls_of_tlg_lftr_exst_cd:
+                        type: string
+                        description: パワーゲート有無
+                        example: "null"
+                      car_cls_of_wing_body_exst_cd:
+                        type: string
+                        description: ウィング有無
+                        example: "null"
+                      car_cls_of_rfg_exst_cd:
+                        type: string
+                        description: 冷凍・冷蔵設備
+                        example: "null"
+                      trms_of_lwr_tmp_meas:
+                        type: number
+                        description: 温度範囲（下限）
+                        example: "null"
+                      trms_of_upp_tmp_meas:
+                        type: number
+                        description: 温度範囲（上限）
+                        example: "null"
+                      car_cls_of_crn_exst_cd:
+                        type: string
+                        description: クレーン付
+                        example: "null"
+                      car_rmk_about_eqpm_txt:
+                        type: string
+                        description: 車輌設備補足
+                        example: "null"
+                      car_cmpn_name_of_gtp_crtf_exst_txt:
+                        type: string
+                        description: 車輌入門証保有
+                        example: "null"
+                                  
+                      vehicle_avb_resource:
+                        type: array
+                        description: 車輌稼働可能リソース
+                        items:
+                          type: object
+                          properties:
+                            trsp_op_strt_area_line_one_txt:
+                              type: string
+                              description: 運行開始地域
+                              example: "12345678901234567890"
+                            trsp_op_strt_area_cty_jis_cd:
+                              type: string
+                              description: 運行開始地域コード
+                              example: "null"
+                            trsp_op_date_trm_strt_date:
+                              type: string
+                              description: 運行開始日
+                              example: "20241024"
+                            trsp_op_plan_date_trm_strt_time:
+                              type: string
+                              description: 運行開始希望時刻
+                              example: "1416"
+                            trsp_op_end_area_line_one_txt:
+                              type: string
+                              description: 運行終了地域
+                              example: "12345678901234567890"
+                            trsp_op_end_area_cty_jis_cd:
+                              type: string
+                              description: 運行終了地域コード
+                              example: "null"
+                            trsp_op_date_trm_end_date:
+                              type: string
+                              description: 運行終了日
+                              example: "20241025"
+                            trsp_op_plan_date_trm_end_time:
+                              type: string
+                              description: 運行終了希望時刻
+                              example: "1416"
+                            clb_area_txt:
+                              type: string
+                              description: 集荷地域
+                              example: "null"
+                            trms_of_clb_area_cd:
+                              type: string
+                              description: 集荷地域コード
+                              example: "null"
+                            avb_date_cll_date:
+                              type: string
+                              description: 集荷予定日
+                              example: "null"
+                            avb_from_time_of_cll_time:
+                              type: string
+                              description: 集荷開始時間
+                              example: "null"
+                            avb_to_time_of_cll_time:
+                              type: string
+                              description: 集荷終了時間
+                              example: "null"
+                            delb_area_txt:
+                              type: string
+                              description: 配達地域
+                              example: "null"
+                            trms_of_delb_area_cd:
+                              type: string
+                              description: 配達地域コード
+                              example: "null"
+                            esti_del_date_prfm_dttm:
+                              type: string
+                              description: 配達予定日
+                              example: "null"
+                            avb_from_time_of_del_time:
+                              type: string
+                              description: 配達開始時間
+                              example: "null"
+                            avb_to_time_of_del_time:
+                              type: string
+                              description: 配達終了時間
+                              example: "null"
+                            avb_load_cp_of_car_meas:
+                              type: number
+                              description: 積載可能重量(kg)
+                              example: "null"
+                            avb_load_vol_of_car_meas:
+                              type: number
+                              description: 積載可能容積
+                              example: "null"
+                            pcke_frm_cd:
+                              type: string
+                              description: 荷姿コード
+                              example: "null"
+                            avb_num_of_retb_cntn_of_car_quan:
+                              type: number
+                              description: 積載可能輸送容器数
+                              example: "null"
+                            trk_bed_stas_txt:
+                              type: string
+                              description: 荷室状況
+                              example: "null"
+                            cut_off_info:
+                              type: array
+                              description: カットオフ情報
+                              items:
+                                type: object
+                                properties:
+                                  cut_off_time:
+                                    type: string
+                                    description: カットオフ時間
+                                    example: "null"
+                                  cut_off_fee:
+                                    type: string
+                                    description: カットオフ料金
+                                    example: "null"                                        
+                            free_time_info:
+                              type: array
+                              description: フリータイム情報
+                              items:
+                                type: object
+                                properties:
+                                  free_time:
+                                    type: string
+                                    description: フリータイム時間
+                                    example: "null"
+                                  free_time_fee:
+                                    type: string
+                                    description: フリータイム料金
+                                    example: "null"
+                                    
+                          required:
+                          - trsp_op_strt_area_line_one_txt
+                          - trsp_op_date_trm_strt_date
+                          - trsp_op_plan_date_trm_strt_time
+                          - trsp_op_end_area_line_one_txt
+                          - trsp_op_date_trm_end_date
+                          - trsp_op_plan_date_trm_end_time
+
+                    required:
+                    - service_no
+                    - service_name
+                    - service_strt_date
+                    - service_strt_time
+                    - freight_rate
+                    - giai
+                    - car_max_load_capacity1_meas
+                      
+                drv_info:
+                  type: array
+                  description: 運転手情報
+                  items:
+                    type: object
+                    properties:
+                      drv_ctrl_num_id:
+                        type: string
+                        description: 運転手管理コード
+                        example: "null"
+                      drv_cls_of_drvg_license_cd:
+                        type: string
+                        description: 免許種類コード
+                        example: "null"
+                      drv_cls_of_fkl_license_exst_cd:
+                        type: string
+                        description: フォークリフト免許
+                        example: "null"
+                      drv_rmk_about_drv_txt:
+                        type: string
+                        description: その他リソース情報
+                        example: "null"
+                      drv_cmpn_name_of_gtp_crtf_exst_txt:
+                        type: string
+                        description: 運転手入門証保有
+                        example: "null"
+                      drv_avb_time:
+                        type: array
+                        description: 運転手稼働可能時間
+                        items:
+                          type: object
+                          properties:
+                            drv_avb_from_date:
+                              type: string
+                              description: 稼働開始予定日
+                              example: "null"
+                            drv_avb_from_time_of_wrkg_time:
+                              type: string
+                              description: 稼働開始予定時間
+                              example: "null"
+                            drv_avb_to_date:
+                              type: string
+                              description: 稼働終了予定日
+                              example: "null"
+                            drv_avb_to_time_of_wrkg_time:
+                              type: string
+                              description: 稼働終了予定時間
+                              example: "null"
+                            drv_wrkg_trms_txt:
+                              type: string
+                              description: その他稼働条件
+                              example: "null"
+                            drv_frmr_optg_date:
+                              type: string
+                              description: 直前運行日
+                              example: "null"
+                            drv_frmr_op_end_time:
+                              type: string
+                              description: 直前運行終了時間
+                              example: "null"
+
+              required:
+                - road_carr
+                - car_info
+            
+        required:
+          - msg_info
+          - trsp_ability_line_item

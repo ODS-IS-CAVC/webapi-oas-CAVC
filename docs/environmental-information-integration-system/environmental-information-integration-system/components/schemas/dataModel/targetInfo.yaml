@@ -1,0 +1,531 @@
+targetInfo:
+  type: object
+  description: 路側機から取得した物標情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 物標情報要素
+      required:
+        - serviceLocationID
+        - roadsideUnitID
+        - updateTimeInfo
+        - formatVersion
+        - deviceNum
+        - deviceIndividualInfo
+      properties:
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        roadsideUnitID:
+          type: integer
+          format: int64
+          description: 路側機ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        deviceNum:
+          type: integer
+          format: int32
+          description: 接続数
+          minimum: 0
+          maximum: 16
+          example: 2
+        deviceIndividualInfo:
+          type: array
+          minItems: 0
+          maxItems: 16
+          items:
+            type: object
+            required:
+              - deviceID
+              - targetNum
+              - targetIndividualInfo
+            properties:
+              deviceID:
+                type: integer
+                format: int32
+                description: 機器識別ID
+                minimum: 0
+                maximum: 16777215
+                example: 12345678
+              targetNum:
+                type: integer
+                format: int32
+                description: 取得物標数
+                minimum: 0
+                maximum: 65535
+                example: 123
+              targetIndividualInfo:
+                type: array
+                minItems: 0
+                maxItems: 65535
+                items:
+                  type: object
+                  required:
+                    - commonServiceStandardID
+                    - targetMessageID
+                    - targetIndividualVersionInfo
+                    - targetID
+                    - targetIndividualIncrementCounter
+                    - dataLength
+                    - individualOptionFlag
+                    - leapSecondCorrectionInfo
+                    - time
+                    - latitude
+                    - longitude
+                    - elevation
+                    - positionConf
+                    - elevationConf
+                    - speed
+                    - heading
+                    - acceleration
+                    - speedConf
+                    - headingConf
+                    - forwardRearAccelerationConf
+                    - transmissionState
+                    - steeringWheelAngle
+                    - sizeClassification
+                    - roleClassification
+                    - vehicleWidth
+                    - vehicleLength
+                  properties:
+                    commonServiceStandardID:
+                      type: integer
+                      format: int32
+                      description: 共通サービス規格（このメッセージが準ずる規格）を識別するID情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    targetMessageID:
+                      type: integer
+                      format: int32
+                      description: メッセージを識別するID情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    targetIndividualVersionInfo:
+                      type: integer
+                      format: int32
+                      description: メッセージのバージョン情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    targetID:
+                      type: integer
+                      format: int64
+                      description: 前回送信時と同一物標かどうかを識別できるように路側機が付与するID情報(物標ID)
+                      minimum: 0
+                      maximum: 4294967295
+                      example: 1234567890
+                    targetIndividualIncrementCounter:
+                      type: integer
+                      format: int32
+                      description: データ送信順を示す番号
+                      minimum: 0
+                      maximum: 255
+                      example: 123
+                    dataLength:
+                      type: integer
+                      format: int32
+                      description: 物標個別拡張領域を除いた物標個別情報のサイズをバイト数で表す
+                      minimum: 0
+                      maximum: 255
+                      example: 123
+                    individualOptionFlag:
+                      type: integer
+                      format: int32
+                      description: 格納するオプション情報を示すフラグ情報
+                      minimum: 0
+                      maximum: 255
+                      example: 123
+                    leapSecondCorrectionInfo:
+                      type: boolean
+                      description: うるう秒補正の有無を示す情報
+                      example: true
+                    time:
+                      type: string
+                      description: 物標情報が生成された時刻(ミリ秒まで)(JST)
+                      minLength: 0
+                      maxLength: 30
+                      example: "2024-01-23T01:23:45.678+09:00"
+                    latitude:
+                      type: integer
+                      format: int32
+                      description: ' 物標の緯度情報．計測系はWGS84．北緯をプラス, 南緯をマイナスで表現(分解能: 0.0000001度)'
+                      minimum: -2147483648
+                      maximum: 900000000
+                      example: 123456789
+                    longitude:
+                      type: integer
+                      format: int32
+                      description: '物標の経度情報．計測系はWGS84．東経をプラス, 西経をマイナスで表現(分解能: 0.0000001度)'
+                      minimum: -2147483648
+                      maximum: 1800000000
+                      example: 1234567891
+                    elevation:
+                      type: integer
+                      format: int32
+                      description: '物標の基準面からの高さ情報(分解能: 0.1m)'
+                      minimum: -4095
+                      maximum: 61440
+                      example: 123
+                    positionConf:
+                      type: integer
+                      format: int32
+                      description: 緯度・経度の信頼度を示す情報
+                      minimum: 0
+                      maximum: 15
+                      example: 1
+                    elevationConf:
+                      type: integer
+                      format: int32
+                      description: 高度の信頼度を示す情報
+                      minimum: 0
+                      maximum: 15
+                      example: 2
+                    speed:
+                      type: integer
+                      format: int32
+                      description: '物標の速度(単位: m/s)．(分解能: 0.01m/s)'
+                      minimum: 0
+                      maximum: 65535
+                      example: 1234
+                    heading:
+                      type: integer
+                      format: int32
+                      description: '物標の進行方位角情報．北を0度とし，時計回りの角度値をセットする．(分解能: 0.0125度)'
+                      minimum: 0
+                      maximum: 65535
+                      example: 14400
+                    acceleration:
+                      type: integer
+                      format: int32
+                      description: '物標の前後方向の加速度(単位：m/s^2)．(分解能: 0.01m/s^2)'
+                      minimum: -32768
+                      maximum: 2000
+                      example: 123
+                    speedConf:
+                      type: integer
+                      format: int32
+                      description: 物標の速度の信頼度を示す情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    headingConf:
+                      type: integer
+                      format: int32
+                      description: 物標の方位角の信頼度を示す情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    forwardRearAccelerationConf:
+                      type: integer
+                      format: int32
+                      description: 物標の前後方向加速度の信頼度を示す情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    transmissionState:
+                      type: integer
+                      format: int32
+                      description: 車両のシフトポジション情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    steeringWheelAngle:
+                      type: integer
+                      format: int32
+                      description: 'ステアリングの操舵角度情報．プラスを時計回りとする．(分解能: 1.5度)'
+                      minimum: -2048
+                      maximum: 2047
+                      example: 1235
+                    sizeClassification:
+                      type: integer
+                      format: int32
+                      description: 物標の種別
+                      minimum: 0
+                      maximum: 15
+                      example: 2
+                    roleClassification:
+                      type: integer
+                      format: int32
+                      description: 物標が車両の場合の用途種別．車両以外の場合15(その他)とする
+                      minimum: 0
+                      maximum: 15
+                      example: 1
+                    vehicleWidth:
+                      type: integer
+                      format: int32
+                      description: '自車両の全幅情報(単位：m). (分解能: 0.01m)'
+                      minimum: 1
+                      maximum: 1023
+                      example: 140
+                    vehicleLength:
+                      type: integer
+                      format: int32
+                      description: '自車両の全長情報(単位：m)．(分解能: 0.01m)'
+                      minimum: 1
+                      maximum: 16383
+                      example: 180
+                    positionDelay:
+                      type: integer
+                      format: int32
+                      description: 測位データ更新周期情報(単位：ms) (分解能：100ms)
+                      minimum: 1
+                      maximum: 31
+                      example: 2
+                    revisionCounter:
+                      type: integer
+                      format: int32
+                      description: 'GPSレシーバからデータ受信したタイミングから同じデータを送信している期間の情報(単位: ms) (分解能：100ms)'
+                      minimum: 1
+                      maximum: 31
+                      example: 3
+                    roadFacilities:
+                      type: integer
+                      format: int32
+                      description: 走行あるいは停車している場所の道路施設情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    roadClassification:
+                      type: integer
+                      format: int32
+                      description: 走行している道路の道路区分情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    semiMajorAxisOfPositionalErrorEllipse:
+                      type: integer
+                      format: int32
+                      description: 'GPSにより取得した位置情報の信頼度指標である水平方向の誤差楕円（2σ）の長半径情報(単位:m) (分解能: 0.5m)'
+                      minimum: 0
+                      maximum: 255
+                      example: 15
+                    semiMinorAxisOfPositionalErrorEllipse:
+                      type: integer
+                      format: int32
+                      description: 'GPSにより取得した位置情報の信頼度指標である水平方向の誤差楕円（2σ）の短半径情報(単位:m) (分解能: 0.5m)'
+                      minimum: 0
+                      maximum: 255
+                      example: 15
+                    semiMajorAxisOrientationOfPositionalErrorEllipse:
+                      type: integer
+                      format: int32
+                      description: 'GPSにより取得した位置情報の信頼度指標である水平方向の誤差楕円（2σ）の回転角情報．楕円長軸の角度として、北を0度とし時計回りの角度値をセットする. (分解能: 0.0125度)'
+                      minimum: 0
+                      maximum: 65535
+                      example: 7200
+                    GPSPositioningMode:
+                      type: integer
+                      format: int32
+                      description: GPSにより取得した位置情報が、どのような測位モードで測位されたものかを示す情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    GPSPDOP:
+                      type: integer
+                      format: int32
+                      description: 'GPSにより取得した位置情報が、衛星の幾何学的配置によりどれくらい位置精度へ影響を受けた状態で取得したものかを示す情報. (分解能: 0.2)'
+                      minimum: 0
+                      maximum: 63
+                      example: 12
+                    numberOfGPSSatellitesInUse:
+                      type: integer
+                      format: int32
+                      description: GPSにより取得した位置情報が、いくつのGPS衛星を捕捉した状態で取得したものかを示す情報
+                      minimum: 0
+                      maximum: 15
+                      example: 6
+                    GPSMultiPathDetection:
+                      type: integer
+                      format: int32
+                      description: GPSにより取得した位置情報が、マルチパスの状況（GPS衛星から 発射された電波が周辺の建物等により反射され、それらを受信する状況）下で取得されたものかを示す情報
+                      minimum: 0
+                      maximum: 3
+                      example: 2
+                    deadReckoningAvailability:
+                      type: boolean
+                      description: 各種センサ等を用いた自律航法機能を搭載しているかを示す情報
+                      example: false
+                    mapMatchingAvailability:
+                      type: boolean
+                      description: 自車両の位置情報に対するマップマッチング機能を搭載しているかを示す情報
+                      example: false
+                    yawRate:
+                      type: integer
+                      format: int32
+                      description: '自車両のヨーレート情報．プラスを時計回りとする(単位: 度/s) (分解能: 0.01度/s)'
+                      minimum: -32768
+                      maximum: 32767
+                      example: 12345
+                    brakeAppliedStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のブレーキ状態情報．車輪別にブレーキ状態を取得出来ない場合は、[5]の値を0にセットし、ブレーキのOFF/ONに従い[0]～[3]の値は全て同じ値をセットする
+                      minimum: 0
+                      maximum: 63
+                      example: 12
+                    auxiliaryBrakeAppliedStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両の補助ブレーキ状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    throttlePosition:
+                      type: integer
+                      format: int32
+                      description: 'アクセルペダルの操作量をセットする(単位:%). (分解能: 0.5%)'
+                      minimum: 0
+                      maximum: 255
+                      example: 123
+                    exteriorLights:
+                      type: integer
+                      format: int32
+                      description: 自車両のウィンカー、ハザード、前照灯の状態情報
+                      minimum: 0
+                      maximum: 255
+                      example: 12
+                    adaptiveCruiseControlStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のACC（Adaptive Cruise Control System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    cooperativeAdaptiveCruiseControlStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のC-ACC（Cooperative Adaptive Cruise Control System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    preCrashSafetyStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両の PCS（Pre-Crash Safety System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    antilockBrakeStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のABS（Antilock Brake System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    tractionControlStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のTRC（Traction Control System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    electronicStabilityControlStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のESC（Electronic Stability Control System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    laneKeepingAssistStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のLKA（Lane Keeping Assist System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    laneDepartureWarningStatus:
+                      type: integer
+                      format: int32
+                      description: 自車両のLDW（Lane Departure Warning System）の作動状態情報
+                      minimum: 0
+                      maximum: 3
+                      example: 1
+                    intersectionDistanceInformationAvailability:
+                      type: integer
+                      format: int32
+                      description: 前方直近の交差点までの距離情報の取得先情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    intersectionDistance:
+                      type: integer
+                      format: int32
+                      description: 前方直近の交差点までの道のり距離情報(単位：m)
+                      minimum: 0
+                      maximum: 1023
+                      example: 100
+                    intersectionPositionInformationAvailability:
+                      type: integer
+                      format: int32
+                      description: 前方直近の交差点の位置情報の取得先情報
+                      minimum: 0
+                      maximum: 7
+                      example: 1
+                    intersectionLatitude:
+                      type: integer
+                      format: int32
+                      description: '前方直近の交差点の緯度情報．計測系はWGS84．北緯をプラス, 南緯をマイナスで表現 (分解能: 0.0000001度)'
+                      minimum: -2147483648
+                      maximum: 900000000
+                      example: 123456789
+                    intersectionLongitude:
+                      type: integer
+                      format: int32
+                      description: '前方直近の交差点の経度情報．計測系はWGS84．東経をプラス, 西経をマイナスで表現 (分解能: 0.0000001度)'
+                      minimum: -2147483648
+                      maximum: 1800000000
+                      example: 1234567891
+                    extendedInformation:
+                      type: integer
+                      format: int32
+                      description: DE_車両用途種別によって，RC-013に定義されているDEを参照
+                      minimum: 0
+                      maximum: 255
+                      example: 1
+                    targetIndividualExtendedData:
+                      type: string
+                      description: 個別拡張情報は利用ユーザによってデータ内容が異なるためbyte文字列をそのまま格納し利用する
+                      minLength: 0
+                      maxLength: 1000
+                      example: 0a1b2c34d5e
+                    restingState:
+                      type: integer
+                      format: int32
+                      description: 物標が停止してからの経過時間(単位:秒)
+                      minimum: 0
+                      maximum: 3602
+                      example: 12
+                    existingTime:
+                      type: integer
+                      format: int32
+                      description: '物標が検知されている時間(単位:秒)．(分解能: 0.1秒)'
+                      minimum: 0
+                      maximum: 36001
+                      example: 120
+                    

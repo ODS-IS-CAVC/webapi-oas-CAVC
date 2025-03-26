@@ -1,0 +1,210 @@
+get:
+  tags:
+    - 共同配送システム
+  summary: 指定した条件の運送能力情報を取得
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API131
+  description: 指定した条件に基づいて、運送能力情報を取得します。
+  parameters:          
+    - name: service_no
+      in: query
+      description: 便・ダイヤ番号
+      schema:
+       type: string
+      
+    - name: service_name
+      in: query
+      description: 便・ダイヤ名称
+      schema:
+        type: string         
+    - name: car_max_load_capacity1_meas
+      in: query
+      description: 最大積載量1
+      schema:
+        type: number
+      
+    - name: trsp_op_strt_area_line_one_txt
+      in: query
+      description: 運行開始地域
+      schema:
+        type: string
+      
+    - name: trsp_op_end_area_line_one_txt
+      in: query
+      description: 運行終了地域
+      schema:
+        type: string
+      
+    - name: max_trsp_op_date_trm_strt_date
+      in: query
+      description: 運行開始日最大値
+      schema:
+        type: string
+      
+    - name: min_trsp_op_date_trm_strt_date
+      in: query
+      description: 運行開始日最小値
+      schema:
+        type: string
+      
+    - name: max_trsp_op_date_trm_end_date
+      in: query
+      description: 運行終了日最大値
+      schema:
+        type: string
+      
+    - name: min_trsp_op_date_trm_end_date
+      in: query
+      description: 運行終了日最小値
+      schema:
+        type: string
+      
+    - name: max_trsp_op_plan_date_trm_strt_time
+      in: query
+      description: 運行開始希望時刻最大値
+      schema:
+        type: string
+      
+    - name: min_trsp_op_plan_date_trm_strt_time
+      in: query
+      description: 運行開始希望時刻最小値
+      schema:
+        type: string
+      
+    - name: max_trsp_op_plan_date_trm_end_time
+      in: query
+      description: 運行終了希望時刻最大値
+      schema:
+        type: string
+      
+    - name: min_trsp_op_plan_date_trm_end_time
+      in: query
+      description: 運行終了希望時刻最小値
+      schema:
+        type: string
+        
+  responses:
+    "200":
+      description: 指定した条件に基づいて、運送能力情報を正常に取得しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+            
+      content:
+        application/json:
+          schema:
+            $ref: "../../components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity"
+
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合
+
+put:
+  tags:
+    - 共同配送システム
+  summary: 運送能力情報を登録
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API141
+  description: 運送能力情報を登録します。          
+  requestBody:
+    description: "運送能力情報"
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity"
+      
+  responses:
+    "201":
+      description: 運送能力情報を正常に登録しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "210":
+      description: モビリティハブ予約失敗。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合
+
+
+delete:
+  tags:
+    - 共同配送システム
+  summary: 運送能力情報を削除
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API144
+  description: 運送能力情報を削除します。
+
+  parameters:
+    - name: trsp_cli_prty_head_off_id
+      in: query
+      required: true
+      description: 削除したい運送事業者コード（本社）
+      schema:
+        type: string
+    - name: trsp_cli_prty_brnc_off_id
+      in: query
+      required: true
+      description: 運送事業者コード（事業所）
+      schema:
+        type: string
+    - name: service_no
+      in: query
+      required: true
+      description: 便・ダイヤ番号
+      schema:
+        type: string
+    - name: service_strt_date
+      in: query
+      required: true
+      description: 便の運行日
+      schema:
+        type: string
+
+  #requestBody:
+  #  description: "運送能力情報"
+  #  required: true
+  #  content:
+  #    application/json:
+  #      schema:
+  #        $ref: "../../components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity"
+      
+  responses:
+    "201":
+      description: 運送能力情報を正常に削除しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合      

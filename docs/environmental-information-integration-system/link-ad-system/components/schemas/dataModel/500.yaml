@@ -1,0 +1,15 @@
+error: 
+  required: 
+  - code
+  - message
+  type: object
+  description: 500エラー発生
+  properties:
+    code: 
+      description: InternalServerError
+      type: string
+      example: InternalServerError
+    message:
+      description: Internal server error.
+      type: string
+      example: Internal server error.

@@ -1,0 +1,235 @@
+vehicle-schedules:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: 自動運転車両のスケジュール
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 自動運転車両のスケジュールのデータモデル
+      required:
+        - vehicleScheduleId
+        - vehicleId
+        - vehicleScheduleStatus
+        - vehicleSchedulePlanStartTime
+        - vehicleScheduleDeltaSec
+        - vehicleScheduleTasks
+        - vehicleScheduleCreatedAt
+        - vehicleScheduleUpdatedAt
+      properties:
+        vehicleScheduleId:
+              type: string
+              format: uuid
+              description: 車両のスケジュールのID
+              example: 03486544-ab8b-4225-cc34-3457608vby56
+        vehicleId:
+          type: string
+          format: uuid 
+          description: 自度運転車両のID
+          example: "78aa302c-1600-44b3-a331-e4659c0b28a1"
+        vehicleScheduleStatus:
+          type: string
+          description: 車両のスケジュールステータス
+          enum:
+            - todo
+            - doing
+            - done
+            - canceling
+            - canceled
+            - aborting
+            - aborted
+            - disabled
+          example: todo
+        vehicleSchedulePlanStartTime:
+          type: string
+          description: 予定開始時間
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"
+        vehicleSchedulePlanEndTime:
+          type: string
+          description: 予定終了時間
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"
+        vehicleScheduleActualStartTime:
+          type: string
+          description: 実績開始時間
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"
+        vehicleScheduleActualEndTime:
+          type: string
+          description: 実績終了時間
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"
+        vehicleScheduleDurationSec:
+          type: integer
+          description: 予定開始時間から予定終了時間の秒数
+          minimum: 0
+          maximum: # 設定ない
+          example: 300
+        vehicleScheduleDeltaSec:
+          type: integer
+          description: >-
+            予定時刻からの遅れや進捗を示す情報（単位：秒）。
+            正の値は実施が遅れていることを示し、負の値は早期に開始したことを示す、
+            0は予定通りであることを示す。
+          minimum: # 設定ない
+          maximum: # 設定ない
+          example: 300
+        vehicleScheduleTasks:
+          type: array
+          minItems: 1
+          maxItems: 10
+          description: スケジュールの実行タスクの配列
+          items:
+            type: object
+            properties:
+              taskId:
+                type: string
+                format: uuid
+                description: 実行タスクのID
+                example: 03486544-ab8b-4225-cc34-3457608vby56
+              taskType:
+                type: string
+                description: スケジュールのタイプ
+                enum:
+                  - move
+                example: move
+              status:
+                type: string
+                description: タスクのタイプ
+                enum:
+                  - todo
+                  - doing
+                  - done
+                  - aborting
+                  - aborted
+                  - disabled
+                example: done
+              origin:
+                type: object
+                description: 走行開始地点の乗降地(バス停)のデータ
+                properties:
+                  busStopId:
+                    type: integer
+                    description: バス停ID
+                    example: 1
+                  busStopName:
+                    type: string
+                    description: バス停名
+                    example: BusStop1
+                  location:
+                    type: object
+                    description: バス停の位置情報
+                    required:
+                      - lat
+                      - lng
+                    properties:
+                      lat:
+                        type: number
+                        description: 緯度
+                        format: double
+                        example: 35.6242681254456
+                      lng:
+                        type: number
+                        description: 経度
+                        format: double
+                        example: 139.74258640456
+              destination:
+                type: object
+                description: 目的地の乗降地(バス停)のデータ
+                properties:
+                  busStopId:
+                    type: integer
+                    description: バス停ID
+                    example: 2
+                  busStopName:
+                    type: string
+                    description: バス停名
+                    example: BusStop2
+                  location:
+                    type: object
+                    description: バス停の位置情報
+                    required:
+                      - lat
+                      - lng
+                    properties:
+                      lat:
+                        type: number
+                        description: 緯度
+                        format: double
+                        example: 35.6242681254456
+                      lng:
+                        type: number
+                        description: 経度
+                        format: double
+                        example: 139.74258640456
+              routeIds:
+                type: array
+                minItems: 0
+                maxItems: 100
+                description: Array of route identifiers of the task.
+                items:
+                  type: string
+                  description: ルートID
+                  format: uuid
+                  example: "d1dbbec4-8eeb-4683-9079-9801adb86d98"
+              planStartTime:
+                type: string
+                description: タスクの予定開始時間
+                maxlength: 32 # 要確認
+                minlength: 32 # 要確認
+                example: "2014-10-10T04:50:40.000001+00:00"
+              planEndTime:
+                type: string
+                description: タスクの予定終了時間
+                maxlength: 32 # 要確認
+                minlength: 32 # 要確認
+                example: "2014-10-10T04:50:40.000001+00:00"
+              actualStartTime:
+                type: string
+                description: タスクの実績開始時間
+                maxlength: 32 # 要確認
+                minlength: 32 # 要確認
+                example: "2014-10-10T04:50:40.000001+00:00"
+              actualEndTime:
+                type: string
+                description: タスクの実績終了時間
+                maxlength: 32 # 要確認
+                minlength: 32 # 要確認
+                example: "2014-10-10T04:50:40.000001+00:00"
+              durationSec:
+                type: integer
+                description: タスクの予定開始時間からタスクの予定終了時間の秒数
+                minimum: # 設定ない
+                maximum: # 設定ない
+                example: 300
+              description:
+                type: string
+                minLength: # 設定ない
+                maxlength: # 設定ない
+                description: お客様のサービスにおいて、車両がどのようなアクションに特化しているかを識別するための説明。
+                example: pickup
+        vehicleScheduleCreatedAt:
+          type: string
+          description: スケジュールの作成時刻
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"
+        vehicleScheduleUpdatedAt:
+          type: string
+          description: スケジュールの更新時刻
+          maxlength: 32 # 要確認
+          minlength: 32 # 要確認
+          example: "2014-10-10T04:50:40.000001+00:00"

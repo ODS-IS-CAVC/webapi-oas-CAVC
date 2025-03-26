@@ -1,0 +1,144 @@
+vehicleIncidentInfo:
+  required:
+    - attribute
+  type: object
+  description: "車両情報連携システムで保持する車両インシデント情報登録のデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+    attribute:
+      type: object
+      description: "データモデル要素"
+      required:
+        - deliveryName 
+        - dateTime
+        - lat
+        - lon
+        - vehicleID
+        - operatorID
+      properties:
+        deliveryName:
+          type: string
+          description: 便名
+          minLength: 0
+          maxLength: 64
+          example: "Sample Delivery"
+        dateTime:
+          type: string
+          pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+          description: 発生時刻
+          example: "2024/01/01 00:00:00"
+        spatialID:
+          type: string
+          description: 空間ID(z/f/x/y) ※任意指定
+          example: "22/1/931369/413142"
+        lat:
+          type: number
+          format: double
+          description: 発生場所緯度
+          minimum: -90
+          maximum: 90
+          example: "35.6242681254456"
+        lon:
+          type: number
+          format: double
+          description: 発生場所経度
+          minimum: -180
+          maximum: 180
+          example: "139.74258640456"
+        vehicleName:
+          type: string
+          description: 車両名
+          minLength: 0
+          maxLength: 64
+          example: "Sample VehicleName"
+        vehicleID:
+          type: string
+          description: 車両ID
+          minLength: 0
+          maxLength: 36
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        operatorID:
+          type: string
+          description: 事業者ID
+          minLength: 0
+          maxLength: 36
+          example: "123e4567-e89b-12d3-a456-426614174001"
+        incidentID:
+          type: string
+          description: 事象特定ID
+          minLength: 0
+          maxLength: 36
+          example: "123e4567-e89b-12d3-a456-426614174002"
+        incidents:
+          type: object
+          properties: 
+            vehicleControlIncident:
+              type: array
+              description: 車両制御系インシデント
+              minItems: 0
+              maxItems: 2147483647
+              items:
+                type: string
+                description: インシデント詳細
+                minLength: 0
+                maxLength: 64
+              example: 
+                  - "ADシステム異常"
+                  - "エンジン制御異常"
+            operationalBasicIncident:
+              type: array
+              description: 運行基本系インシデント
+              minItems: 0
+              maxItems: 2147483647
+              items:
+                type: string
+                description: インシデント詳細
+                minLength: 0
+                maxLength: 64
+              example:
+                  - "タイヤパンク"
+                  - "車両火災"
+            accidentIncident:
+              type: array
+              description: 事故
+              minItems: 0
+              maxItems: 2147483647
+              items:
+                type: string
+                description: インシデント詳細
+                minLength: 0
+                maxLength: 64
+              example:
+                  - "エアバック展開情報"
+            weatherIncident:
+              type: array
+              description: 天候インシデント
+              minItems: 0
+              maxItems: 2147483647
+              items:
+                type: string
+                description: インシデント詳細
+                minLength: 0
+                maxLength: 64
+              example:
+                  - "積雪深さ ○○cm　以上"
+                  - "濃霧"
+            trafficIncident:
+              type: array
+              description: 交通インシデント
+              minItems: 0
+              maxItems: 2147483647
+              items:
+                type: string
+                description: インシデント詳細
+                minLength: 0
+                maxLength: 64
+              example:
+                  - "事故（他車両）"
+                  - "他停止車両"

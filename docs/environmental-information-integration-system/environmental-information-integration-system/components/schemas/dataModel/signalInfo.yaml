@@ -1,0 +1,70 @@
+signalInfo:
+  type: object
+  description: サービス地点提供地点及びV2Iで提供される信号情報を特定するための情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 信号情報要素
+      required:
+        - serviceLocationID
+        - roadsideUnitID
+        - updateTimeInfo
+        - formatVersion
+        - prefectureID
+        - roadType
+        - intersectionID
+      properties:
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        roadsideUnitID:
+          type: integer
+          format: int64
+          description: 路側機ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        prefectureID:
+          type: integer
+          format: int32
+          description: 都道府県コード(JIS)
+          minimum: 1
+          maximum: 47
+          example: 1
+        roadType:
+          type: integer
+          format: int32
+          description: 提供点の種別
+          minimum: 0
+          maximum: 1
+          example: 0
+        intersectionID:
+          type: integer
+          format: int32
+          description: 交差点を識別するID
+          minimum: 1
+          maximum: 32767
+          example: 12345

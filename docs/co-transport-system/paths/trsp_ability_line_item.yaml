@@ -1,0 +1,24 @@
+    put:
+      tags:
+      - 共同配送システム
+      description: 運送能力明細を登録します。trsp_ability_line_item
+      requestBody:
+        description: "運送事業者、車輌情報、車輌稼働可能リソース"
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/trsp_ability_line_item.yaml#/trsp_ability_line_item"
+        required: true
+      responses:
+        '200':
+          description: 登録の正常終了
+          content:
+            application/json:
+              schema:
+                type: object
+              properties:
+                message:
+                  type: string
+                  description: "応答メッセージ。"
+              example:
+                message: "登録が完了しました。"

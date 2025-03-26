@@ -1,0 +1,25 @@
+openapi: "3.0.3"
+info:
+  title: ヒヤリハット管理システムAPI
+  version: "0.0.1"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /nearmissinfolist:
+    $ref: "./paths/nearMissInfoList.yaml"
+security:
+  - ApiKeyAuth: []
+    Authorization: []
+components:
+  schemas:
+    dataModel.nearMissInfoList:
+      $ref: "./components/schemas/dataModel/nearMissInfoList.yaml#/nearMissInfoList"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
+    Authorization:
+      type: http
+      scheme: bearer
+      description: アクセストークン発行APIで発行したアクセストークン

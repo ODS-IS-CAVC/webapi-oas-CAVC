@@ -1,0 +1,25 @@
+facade:
+  required:
+  - dataModelType
+  - attribute
+  type: object
+  description: 直接アクセス・ポイント データモデル
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      required:
+        - url
+      properties:
+        url:
+          type: string
+          description: 直接アクセス・ポイントのURL。
+          minLength: 1
+          maxLength: 4096
+          example: https://api.server.test/v1

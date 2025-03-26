@@ -1,0 +1,280 @@
+semiDynamicInfo:
+  required:
+    - attribute
+  type: object
+  description: "車両情報連携システムで保持する準動的情報のデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+    attribute:
+      type: object
+      description: "データモデル要素"
+      required:
+        - result
+      properties:
+        result:
+          description: "結果コード"
+          type: integer
+          format: int32
+          example: 0
+        targetTime:
+          type: string
+          pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+          description: "検索対象の日時"
+          example: "2024/01/01 00:00:00"
+        errors:
+          type: array
+          description: "各情報ごとのエラー内容のリスト"
+          minItems: 0
+          maxItems: 4
+          items:
+            type: object
+            properties:
+              trafficInfoError:
+                type: object
+                description: "渋滞情報取得時のエラー"
+                properties:
+                  errorCode:
+                    type: integer
+                    format: int32
+                    description: "エラーコード"
+                    minimum: -10
+                    maximum: 0
+                    example: 0
+                  message:
+                    type: string
+                    description: "異常内容のメッセージ"
+                    example: システムエラーが発生しました。
+              eventRegulationInfoError:
+                type: object
+                description: "事象規制情報取得時のエラー"
+                properties:
+                  errorCode:
+                    type: integer
+                    format: int32
+                    description: "エラーコード"
+                    minimum: -10
+                    maximum: 0
+                    example: 0
+                  message:
+                    type: string
+                    description: "異常内容のメッセージ"
+                    example: システムエラーが発生しました。
+              weatherInfoError:
+                type: object
+                description: "気象情報取得時のエラー"
+                properties:
+                  errorCode:
+                    type: integer
+                    format: int32
+                    description: "エラーコード"
+                    minimum: -10
+                    maximum: 0
+                    example: 0
+                  message:
+                    type: string
+                    description: "異常内容のメッセージ"
+                    example: システムエラーが発生しました。
+              shelterAreaInfoError:
+                type: object
+                description: "待避エリア情報取得時のエラー"
+                properties:
+                  errorCode:
+                    type: integer
+                    format: int32
+                    description: "エラーコード"
+                    minimum: -10
+                    maximum: 0
+                    example: 0
+                  message:
+                    type: string
+                    description: "異常内容のメッセージ"
+                    example: システムエラーが発生しました。
+        level1:
+          type: array
+          description: "検索内容レベル1"
+          minItems: 0
+          maxItems: 2147483647
+          items:
+            type: object
+            properties:
+              spatialID:
+                type: string
+                description: "空間ID(z/f/x/y)"
+                example: "18/1/931369/413142"
+              bbox:
+                type: array
+                description: "空間IDに対応するバウンディングボックス（矩形領域座標)データモデル。「SW(経度), SW(緯度), NE(経度), NE(緯度)」"
+                minItems: 4
+                maxItems: 4
+                items:
+                  type: number
+                  format: double
+                  minimum: -180
+                  maximum: 180
+                example:
+                  - 139.681994465
+                  - 35.50676814
+                  - 139.681985082
+                  - 35.506773265
+              weatherInfo:
+                type: object
+                description: "気象情報"
+                properties:
+                  dateTime:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "気象情報の対象日時。"
+                    example: "2024/07/01 12:00:00"
+                  weather:
+                    type: string
+                    description: "天気。100=晴、200=曇、300=雨、400=雪、500=みぞれ、65535.0=不明"
+                    example: "100"
+                  temperature:
+                    type: number
+                    format: double
+                    description: "気温。単位=℃ 0.1刻み。65535.0=不明"
+                    example: 28.6
+                  windDirection:
+                    type: number
+                    format: double
+                    description: "風向。単位=度 0.1刻み。65535.0=不明"
+                    example: 21.1
+                  windSpeed:
+                    type: number
+                    format: double
+                    description: "風速。単位=m/s 0.1刻み。65535.0=不明"
+                    example: 2.7
+                  humidity:
+                    type: number
+                    format: double
+                    description: "湿度。単位=% 0.1刻み。65535.0=不明"
+                    example: 65.0
+                  rainfall:
+                    type: number
+                    format: double
+                    description: "時間降水量。単位=mm/h 0.1刻み。65535.0=不明"
+                    example: 0.5
+                  updatedAt:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "気象情報の情報源からの受付日時。"
+                    example: "2024/07/01 12:01:15"
+              level2:
+                type: array
+                description: "検索内容レベル2"
+                minItems: 0
+                maxItems: 2147483647
+                items:
+                  type: object
+                  properties:
+                    spatialID:
+                      type: string
+                      description: "空間ID(z/f/x/y)"
+                      example: "23/1/931369/413142"
+                    bbox:
+                      type: array
+                      description: "空間IDに対応するバウンディングボックス（矩形領域座標)データモデル。「SW(経度), SW(緯度), NE(経度), NE(緯度)」"
+                      minItems: 4
+                      maxItems: 4
+                      items:
+                        type: number
+                        format: double
+                        minimum: -180
+                        maximum: 180
+                      example:
+                        - 139.681994465
+                        - 35.50676814
+                        - 139.681985082
+                        - 35.506773265
+                    trafficInfo:
+                      type: object
+                      description: "交通渋滞情報"
+                      properties:
+                        dateTime:
+                          type: string
+                          pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                          description: "交通渋滞情報の対象日時。"
+                          example: "2024/07/01 12:00:00"
+                        severity:
+                          type: integer
+                          format: int32
+                          description: "渋滞度(渋滞＝1,混雑＝2,対象外=0)"
+                          minimum: 0
+                          maximum: 2147483647
+                          example: 0
+                    eventRegulationInfo:
+                      type: array
+                      description: "交通規制情報"
+                      minItems: 0
+                      maxItems: 2147483647
+                      items:
+                        type: object
+                        properties:
+                          dateTime:
+                            type: string
+                            pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                            description: "交通規制情報の対象日時。"
+                            example: "2024/07/01 12:00:00"
+                          cause:
+                            type: string
+                            description: "事象原因。提供名称か詳細名称のいずれか。"
+                            minLength: 0
+                            maxLength: 20
+                            example: "災害"
+                          regulation:
+                            type: string
+                            description: "規制内容。提供名称か詳細名称のいずれか。"
+                            minLength: 0
+                            maxLength: 20
+                            example: "片側交互通行"
+                          plannedStartTimestamp:
+                            type: string
+                            pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                            description: "当該規制の開始予定日時。指定がなければ対象日時時点で発生中の事象とする。"
+                            example: "2024/11/01 12:00:00"
+                          plannedEndTimestamp:
+                            type: string
+                            pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                            description: "当該規制の終了予定日時。指定がなければ終了日時不明とする。"
+                            example: "2024/11/03 12:00:00"
+                    shelterAreaInfo:
+                      type: object
+                      description: "待避エリア情報"
+                      properties:
+                        dateTime:
+                          type: string
+                          pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                          description: "待避エリア情報の対象日時。"
+                          example: "2024/07/01 12:00:00"
+                        shelterAreaName:
+                          type: string
+                          description: "待避エリアの名称"
+                          minLength: 0
+                          maxLength: 256
+                          example: "zzz待避エリア"
+                        roadType:
+                          type: string
+                          description: "道路属性" 
+                          minLength: 0
+                          maxLength: 256
+                          example: "新東名高速道路上り"
+                        maxCapacity:
+                          type: integer
+                          format: int32
+                          description: "該当待避エリアの最大駐車台数。"
+                          minimum: 0
+                          maximum: 2147483647
+                          example: 1
+                        currentCount:
+                          type: integer
+                          format: int32
+                          description: "該当待避エリアの現在の駐車台数。"
+                          minimum: 0
+                          maximum: 2147483647
+                          example: 1

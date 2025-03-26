@@ -1,0 +1,193 @@
+put:
+  tags:
+    - 車両情報連携システム
+  summary: Incident 及び Delay の情報更新
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  description: Incident 及び Delay の情報更新。このエンドポイントは、200 OK ステータスを返却し、コンテンツは含まれません。
+  requestBody:
+    description: 車両インシデント情報
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '#/components/schemas/VehicleIncidentInfo'
+  responses:
+    "200":
+      description: OK
+    "500":
+      description: NG
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: 結果コード
+                type: integer
+                format: int32
+                example: 0
+              message:
+                description: 異常内容のメッセージ
+                type: string
+                example: システムエラーが発生しました。
+              timeStamp:
+                type: string
+                format: date-time
+                description: タイムスタンプ
+                minLength: 19
+                maxLength: 19
+                example: "2024/01/01 00:00:00"
+components:
+  schemas:
+    VehicleIncidentInfo:
+      type: object
+      description: Incident 及び Delay の情報登録のデータモデル
+      required:
+        - attribute
+      properties:
+        dataModelType:  # テンプレから変更なし
+          type: string
+          description: "データモデルタイプ"
+          enum:
+            - test1
+            - test2
+          example: test1
+        attribute:
+          type: object  
+          required:
+            - trsp_isr
+            - trsp_srvc
+          properties:
+            trsp_isr:
+              $ref: "#/components/schemas/TrspIsr"
+            trsp_srvc:
+              $ref: "#/components/schemas/TrspSrvc"
+    TrspIsr:
+      type: object
+      description: Transport instruction
+      required:
+        - trsp_instruction_id
+      properties:
+        trsp_instruction_id:
+          type: string
+          description: Transport instruction ID
+          minLength: 1
+          maxLength: 20
+          example: "1234567891234567890"
+
+    TrspSrvc:
+      type: object
+      description: Transport service. Including incident information.
+      properties:
+        trsp_normal_abnm_cls_srvc_rqrm_cd:
+          type: string
+          description: "Transport normal abnormal class service requirement code. 1: Normal, 2: Abnormal"
+          enum:
+            - '1'
+            - '2'
+        trsp_incidents:
+          type: array
+          description: Incident information included only if abnormal. Otherwise empty.
+          items:
+            $ref: '#/components/schemas/Incident'
+        trsp_delay:
+          type: [object, null]
+          description: Estimated time of arrival included only if delay. Otherwise null.
+          properties:
+            trsp_eta_date:
+              type: string
+              description: Estimated time of arrival date. JST. yyyyMMdd
+              pattern: '^\d{8}$'
+              example: "20241113"
+            trsp_eta_time:
+              type: string
+              description: Estimated time of arrival time. JST. 24-hour notation. HHmm
+              pattern: '^\d{4}$'
+              example: "1556"
+        trsp_vehicle_stop:
+          type: [object, null]
+          description: > 
+                    Only if vehicle stop got succeeded after incident, vehicle stop information is included. Otherwise, value is null.
+                    車両が異常発生後に無事停止した場合のみ、車両停止情報が含まれます。そうでない場合はnullです。
+          properties:
+            trsp_is_vehicle_stop_succeeded:
+              type: boolean
+              description: >
+                    Vehicle stop succeeded or not.
+                    車両が異常発生後に無事停止したかどうかを示します。  
+        trsp_normal_abnm_date:
+          type: string
+          description: Transport normal abnormal date. JST. Format yyyyMMdd.
+          pattern: '^\d{8}$'
+          example: "20241113"
+        trsp_normal_abnm_time:
+          type: string
+          description: Transport normal abnormal time. JST. 24-hour notation. HHmm.
+          pattern: '^\d{4}$'
+          example: "1356"
+        trsp_location:
+          $ref: "#/components/schemas/TrspLocation"
+    TrspLocation:
+      type: object
+      description: Location where the event occurred
+      properties:
+        lat:
+          type: number
+          format: double
+          description: "車両の位置情報(緯度)"
+          minimum: -90
+          maximum: 90
+          example: 35.6242681254456
+        lon:
+          type: number
+          format: double
+          description: "車両の位置情報(経度)"
+          minimum: -180
+          maximum: 180
+          example: 139.74258640456
+
+    Incident:
+      type: object
+      properties:
+        trsp_incident_gs1_id:
+          type: string
+          maxLength: 30
+          example: "abc-def-ghi"
+        trsp_incident_category:
+          type: string
+          enum:
+            - "VEHICLE_CONTROL_INCIDENT"
+            - "OPERATIONAL_BASIC_INCIDENT"
+            - "ACCIDENT"
+            - "WEATHER_INCIDENT"
+            - "TRAFFIC_INCIDENT"
+        trsp_incident_type:
+          type: string
+          enum:
+            - "ADK_ERROR"
+            - "ECU_ERROR"
+            - "DPD_ERROR"
+            - "TRANSMISSION_ERROR"
+            - "STEERING_ERROR"
+            - "EBS_ERROR"
+            - "AIR_SUSPENSION_ERROR"
+            - "TIRE_PUNCTURE"
+            - "VEHICLE_FIRE"
+            - "OIL_LEAKAGE"
+            - "VOLTAGE_ERROR"
+            - "FUEL_SYSTEM_ERROR"
+            - "COOLING_SYSTEM_ERROR"
+            - "CARGO_COLLAPSE"
+            - "AIRBAG_EXPLOSION"
+            - "SNOW_DEPTH_EXCEEDED"
+            - "WIND_SPEED_EXCEEDED"
+            - "RAINFALL_EXCEEDED"
+            - "SNOWFALL_EXCEEDED"
+            - "THICK_FOG"
+            - "FROZEN_ROAD_SURFACE"
+            - "OTHER_VEHICLE_ACCIDENT"
+            - "OTHER_VEHICLE_STOPPED"
+            - "TRAFFIC_CONGESTION"
+            - "VEHICLE_DRIVING_WRONG_WAY"

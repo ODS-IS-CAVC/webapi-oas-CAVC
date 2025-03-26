@@ -1,0 +1,30 @@
+openapi: "3.0.3"
+info:
+  title: 車両情報連携システム
+  version: "0.0.1"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /dynamicInfo:
+    $ref: "./paths/dynamicInfo.yaml"
+  /semiDynamicInfo:
+    $ref: "./paths/semiDynamicInfo.yaml"
+  /vehicleIncidentInfo:
+    $ref: "./paths/vehicleIncidentInfo.yaml"
+components:
+  schemas:
+    dataModel.dynamicInfo:
+      $ref: "./components/schemas/dataModel/dynamicInfo.yaml#/dynamicInfo"
+    dataModel.semiDynamicInfo:
+      $ref: "./components/schemas/dataModel/semiDynamicInfo.yaml#/semiDynamicInfo"
+    dataModel.vehicleIncidentInfo:
+      $ref: "./components/schemas/dataModel/vehicleIncidentInfo.yaml#/vehicleIncidentInfo"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
+    Authorization:
+      type: http
+      scheme: bearer
+      description: アクセストークン発行APIで発行したアクセストークン

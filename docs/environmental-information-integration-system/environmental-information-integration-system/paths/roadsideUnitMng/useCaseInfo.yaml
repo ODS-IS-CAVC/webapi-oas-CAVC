@@ -1,0 +1,59 @@
+    get:
+      tags:
+      - 環境情報連携システム
+      description: 環境情報連携システムのユースケース情報データモデルのデータを取得します。
+      parameters:
+      - name: serviceLocationID
+        in: query
+        description: サービス地点ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 123456789
+      - name: roadsideUnitID
+        in: query
+        description: 路側機ID
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 123456789
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../components/schemas/dataModel/useCaseInfo.yaml#/useCaseInfo"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+    put:
+      tags:
+      - 環境情報連携システム
+      description: 環境情報連携システムのユースケース情報データモデルのデータを新規作成or更新します。
+      requestBody:
+        description: Request Body
+        content:
+          application/json:
+            schema:
+                  $ref: "../../components/schemas/dataModel/useCaseInfo.yaml#/useCaseInfo"
+            examples:
+                create:
+                  summary: データ
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "../../components/schemas/dataModel/useCaseInfo.yaml#/useCaseInfo"
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error

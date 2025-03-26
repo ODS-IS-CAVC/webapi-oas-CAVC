@@ -1,0 +1,40 @@
+put:
+  tags:
+    - 共同配送システム
+  summary: 運送能力情報を削除　暫定対応
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API141
+  description: 運送能力情報を削除します。          
+  requestBody:
+    description: "運送能力情報"
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "../../components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity_del"
+      
+  responses:
+    "201":
+      description: 運送能力情報を正常に削除しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "210":
+      description: モビリティハブ予約失敗。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合

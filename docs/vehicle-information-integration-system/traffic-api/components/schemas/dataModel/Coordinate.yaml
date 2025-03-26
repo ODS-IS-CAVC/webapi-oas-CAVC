@@ -1,0 +1,14 @@
+coordinate:
+  description: 座標（緯度経度高度）データモデル
+  type: array
+  minItems: 2
+  maxItems: 3
+  items:
+    type: number
+    format: double
+    minimum: -100000000
+    maximum:  100000000
+  example:
+    - 139.681994465
+    - 35.50676814
+    - 1.274998954

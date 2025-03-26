@@ -1,0 +1,34 @@
+put:
+  tags:
+    - 共同配送システム
+  summary: 車輛マスタを削除　暫定対応
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API123
+  description: 車輛マスタを削除します。
+  requestBody:
+    description: "車両マスタ"
+    required: true
+    content:
+      application/json:
+        schema:
+          #type: "object"
+          #properties:
+          $ref: "../../components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle_del"
+      
+  responses:
+    "201":
+      description: 車輛マスタを正常に削除しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合

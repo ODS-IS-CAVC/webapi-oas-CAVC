@@ -1,0 +1,80 @@
+trsp_ability_line_item:
+  required:
+  - dataModelType
+  - attribute
+  type: object
+  description: データモデル vehicle_avb_resource
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: データモデル要素
+      properties:
+        road_carr:
+          type: object
+          description: データモデル要素
+          properties:
+            trsp_cli_prty_head_off_id:
+              type: string
+              description: 運送事業者コード(本社)
+              minLength: 1
+              maxLength: 13
+            trsp_cli_prty_brnc_off_id:
+              type: string
+              description: 運送事業者コード(事業所)
+              minLength: 1
+              maxLength: 17
+        car_info:
+          type: object
+          description: データモデル要素
+          properties:
+            pcke_frm_cd:
+              type: string
+              description: 荷姿コード
+              minLength: 1
+              maxLength: 3
+            ar_max_untl_cp_quan:
+              type: integer
+              description: 最大積載数
+              minimum: 1
+              maximum: 99
+        vehicle_avb_resource:
+          type: object
+          description: データモデル要素
+          properties:
+            trsp_op_strt_area_line_one_txt:
+              type: string
+              description: 運行開始地域
+              minLength: 1
+              maxLength: 20
+            trsp_op_end_area_line_one_txt:
+              type: string
+              description: 運行終了地域
+              minLength: 1
+              maxLength: 20
+            trsp_op_date_trm_strt_date:
+              type: string
+              example: '2020-01-31'
+              format: date
+              description: 運行開始日
+            trsp_op_plan_date_trm_strt_time:
+              type: string
+              example: 23:59
+              pattern: '^(2[0-3]|[01][0-9]):([0-5][0-9])$'
+              description: 運行開始希望時刻 (hh:mm形式)
+            trsp_op_date_trm_end_date:
+              type: string
+              example: '2020-01-31'
+              format: date
+              description: 運行終了日
+            trsp_op_plan_date_trm_end_time:
+              type: string
+              example: 23:59
+              pattern: '^(2[0-3]|[01][0-9]):([0-5][0-9])$'
+              description: 運行終了希望時刻 (hh:mm形式)

@@ -1,0 +1,659 @@
+vehicle:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: "車輌マスタのデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+
+    attribute:
+        type: object
+        properties:
+          vehicle_info:      
+            type: object        
+            description: 車輌情報  
+            properties: 
+                  
+              registration_number:
+                type: string
+                description: 自動車登録番号
+                example: "  品川△△５００あ１２３４"
+                    
+              giai:
+                type: string
+                description: GIAI
+                example: "1234567890123456789012345678901234"
+
+              registration_transport_office_name:
+                type: string
+                description: 自動車登録番号_車輌登録運輸支局名
+                example: "品川"
+                      
+              registration_vehicle_type: 
+                type: string
+                description: 自動車登録番号_車輌種別
+                example: "５００"
+                      
+              registration_vehicle_use:
+                type: string
+                description: 自動車登録番号_車輌用途
+                example: "あ"
+                      
+              registration_vehicle_id:
+                type: string
+                description: 自動車登録番号_車輌番号
+                example: "１２３４"
+                      
+              chassis_number:
+                type: string
+                description: 車台番号
+                example: "null"
+                      
+              vehicle_id:
+                type: string
+                description: 車輌番号
+                example: "null"
+                      
+              operator_corporate_number:
+                type: string
+                description: 車輌使用者法人番号
+                example: "1234567890123"
+                      
+              operator_business_code:
+                type: string
+                description: 車輌使用者事業所コード
+                example: "null"
+                      
+              owner_corporate_number:
+                type: string
+                description: 車輌所有者法人番号
+                example: "null"
+                      
+              owner_business_code:
+                type: string
+                description: 車輌所有者事業所コード
+                example: "null"
+                      
+              vehicle_type: 
+                type: string
+                description: 車輌種別
+                example: "1"
+                      
+              hazardous_material_vehicle_type: 
+                type: string
+                description: 危険物積載車輌種別
+                example: "null"
+                      
+              tractor:
+                type: string
+                description: トラクタ（けん引車）
+                example: "null"
+                      
+              trailer:
+                type: string
+                description: トレーラ（被けん引車）
+                example: "null"
+
+            required:
+              - registration_number
+              - giai
+              - registration_transport_office_name
+              - registration_vehicle_type
+              - registration_vehicle_use
+              - registration_vehicle_id
+              - operator_corporate_number
+              - vehicle_type
+
+          motas_info:      
+            type: object        
+            description: MOTAS情報
+            properties: 
+                    
+              max_payload_1:
+                type: number
+                description: 最大積載量1 
+                example: "33650"
+                      
+              max_payload_2:
+                type: number
+                description: 最大積載量2
+                example: "8500"
+                      
+              vehicle_weight:
+                type: number
+                description: 車輌重量
+                example: "4810"
+                      
+              vehicle_length:
+                type: number
+                description: 車輌長さ
+                example: "553"
+                      
+              vehicle_width:
+                type: number
+                description: 車輌幅
+                example: "244"
+                      
+              vehicle_height:
+                type: number
+                description: 車輌高さ
+                example: "282"
+                      
+              hazardous_material_volume:
+                type: number
+                description: 危険物容積
+                example: "null"
+                      
+              hazardous_material_specific_gravity:
+                type: number
+                description: 危険物比重
+                example: "null"
+                      
+              expiry_date:
+                type: string
+                description: 有効期間満了年月日
+                example: "20281030"
+                      
+              deregistration_status:
+                type: string
+                description: 抹消状態表示文字
+                example: "null"
+            
+            required:
+              - max_payload_1
+              - max_payload_2
+              - vehicle_weight
+              - vehicle_length
+              - vehicle_width
+              - vehicle_height
+              - expiry_date
+
+          vehicle_details:      
+            type: object        
+            description: 車輌情報詳細
+            properties: 
+                  
+              bed_height:
+                type: number
+                description: 荷台高さ
+                example: "100"
+                      
+              cargo_height:
+                type: number
+                description: 荷室高さ
+                example: "100"
+                      
+              cargo_width:
+                type: number
+                description: 荷室全幅
+                example: "100"
+                      
+              cargo_length:
+                type: number
+                description: 荷室長さ
+                example: "100"
+                      
+              max_cargo_capacity:
+                type: number
+                description: 最大積載容量
+                example: "null"
+                      
+              body_type: 
+                type: string
+                description: 平ボディ/バンボディ
+                example: "null"
+
+              power_gate:
+                type: string
+                description: パワーゲート有無
+                example: "null"
+                      
+              wing_doors:
+                type: string
+                description: ウィング有無
+                example: "null"
+
+              refrigeration_unit:
+                type: string
+                description: 冷凍・冷蔵設備
+                example: "0"
+                      
+              temperature_range_min:
+                type: number
+                description: 温度範囲（下限）
+                example: "0"
+                      
+              temperature_range_max:
+                type: number
+                description: 温度範囲（上限）
+                example: "null"
+                      
+              crane_equipped:
+                type: string
+                description: クレーン付
+                example: "null"
+                      
+              vehicle_equipment_notes:
+                type: string
+                description: 車輌設備補足
+                example: "null"
+                      
+              master_data_start_date:
+                type: string
+                description: マスタ適用開始日
+                example: "20220101"
+                      
+              master_data_end_date:
+                type: string
+                description: マスタ適用終了日
+                example: "20990101"
+                  
+            required:
+              - bed_height
+              - cargo_height
+              - cargo_width
+              - cargo_length
+              - refrigeration_unit
+              - master_data_start_date
+              - master_data_end_date
+
+          max_carrying_capacity:
+            type: array
+            description: 最大積載能力
+            items:
+              type:  object
+              properties:
+                package_code:
+                  type: string
+                  description: 荷姿コード
+                  example: "null"
+                  
+                package_name_kanji:
+                  type: string
+                  description: 荷姿名（漢字）
+                  example: "null"
+                  
+                width:
+                  type: number
+                  description: 幅
+                  example: "null"
+                  
+                height:
+                  
+                  type: number
+                  description: 高さ
+                  example: "null"
+                depth:
+                  type: number
+                  description: 奥行き
+                  example: "null"
+                  
+                dimension_unit_code:
+                  type: string
+                  description: 寸法単位コード
+                  example: "null"
+                  
+                max_load_quantity:
+                  type: number
+                  description: 最大積載数
+                  example: "null"
+                  
+          hazardous_material_info:
+            type: array
+            description: 危険物情報
+            items:
+              type:  object
+              properties:
+                hazardous_material_item_code:
+                  type: string
+                  description: 危険物積載物品名コード
+                  example: "null"
+                  
+                hazardous_material_text_info:
+                  type: string
+                  description: 危険物文字情報
+                  example: "null"
+
+        required:
+          - vehicle_info
+          - motas_info
+          - vehicle_details
+          - max_carrying_capacity
+          - hazardous_material_info
+
+vehicle_del:
+  required:
+    - dataModelType
+    - attribute
+  type: object
+  description: "車輌マスタのデータモデル"
+  properties:
+    dataModelType:  # テンプレから変更なし
+        type: string
+        description: "データモデルタイプ"
+        enum:
+          - test1
+          - test2
+        example: test1
+
+    attribute:
+        type: object
+        properties:
+          vehicle_info:      
+            type: object        
+            description: 車輌情報  
+            properties: 
+                  
+              registration_number:
+                type: string
+                description: 自動車登録番号
+                example: "  品川△△５００あ１２３４"
+                    
+              giai:
+                type: string
+                description: GIAI
+                example: "123456789012345678901234567890"
+
+              registration_transport_office_name:
+                type: string
+                description: 自動車登録番号_車輌登録運輸支局名
+                example: "品川"
+                      
+              registration_vehicle_type: 
+                type: string
+                description: 自動車登録番号_車輌種別
+                example: "５００"
+                      
+              registration_vehicle_use:
+                type: string
+                description: 自動車登録番号_車輌用途
+                example: "あ"
+                      
+              registration_vehicle_id:
+                type: string
+                description: 自動車登録番号_車輌番号
+                example: "１２３４"
+                      
+              chassis_number:
+                type: string
+                description: 車台番号
+                example: "null"
+                      
+              vehicle_id:
+                type: string
+                description: 車輌番号
+                example: "null"
+                      
+              operator_corporate_number:
+                type: string
+                description: 車輌使用者法人番号
+                example: "1234567890123"
+                      
+              operator_business_code:
+                type: string
+                description: 車輌使用者事業所コード
+                example: "null"
+                      
+              owner_corporate_number:
+                type: string
+                description: 車輌所有者法人番号
+                example: "null"
+                      
+              owner_business_code:
+                type: string
+                description: 車輌所有者事業所コード
+                example: "null"
+                      
+              vehicle_type: 
+                type: string
+                description: 車輌種別
+                example: "1"
+                      
+              hazardous_material_vehicle_type: 
+                type: string
+                description: 危険物積載車輌種別
+                example: "null"
+                      
+              tractor:
+                type: string
+                description: トラクタ（けん引車）
+                example: "null"
+                      
+              trailer:
+                type: string
+                description: トレーラ（被けん引車）
+                example: "null"
+
+            required:
+              - registration_number
+              - giai
+              - registration_transport_office_name
+              - registration_vehicle_type
+              - registration_vehicle_use
+              - registration_vehicle_id
+              - operator_corporate_number
+              - vehicle_type
+
+          motas_info:      
+            type: object        
+            description: MOTAS情報
+            properties: 
+                    
+              max_payload_1:
+                type: number
+                description: 最大積載量1 
+                example: "33650"
+                      
+              max_payload_2:
+                type: number
+                description: 最大積載量2
+                example: "8500"
+                      
+              vehicle_weight:
+                type: number
+                description: 車輌重量
+                example: "4810"
+                      
+              vehicle_length:
+                type: number
+                description: 車輌長さ
+                example: "553"
+                      
+              vehicle_width:
+                type: number
+                description: 車輌幅
+                example: "244"
+                      
+              vehicle_height:
+                type: number
+                description: 車輌高さ
+                example: "282"
+                      
+              hazardous_material_volume:
+                type: number
+                description: 危険物容積
+                example: "null"
+                      
+              hazardous_material_specific_gravity:
+                type: number
+                description: 危険物比重
+                example: "null"
+                      
+              expiry_date:
+                type: string
+                description: 有効期間満了年月日
+                example: "20281030"
+                      
+              deregistration_status:
+                type: string
+                description: 抹消状態表示文字
+                example: "null"
+            
+            required:
+              - max_payload_1
+              - max_payload_2
+              - vehicle_weight
+              - vehicle_length
+              - vehicle_width
+              - vehicle_height
+              - expiry_date
+
+          vehicle_details:      
+            type: object        
+            description: 車輌情報詳細
+            properties: 
+                  
+              bed_height:
+                type: number
+                description: 荷台高さ
+                example: "100"
+                      
+              cargo_height:
+                type: number
+                description: 荷室高さ
+                example: "100"
+                      
+              cargo_width:
+                type: number
+                description: 荷室全幅
+                example: "100"
+                      
+              cargo_length:
+                type: number
+                description: 荷室長さ
+                example: "100"
+                      
+              max_cargo_capacity:
+                type: number
+                description: 最大積載容量
+                example: "null"
+                      
+              body_type: 
+                type: string
+                description: 平ボディ/バンボディ
+                example: "null"
+
+              power_gate:
+                type: string
+                description: パワーゲート有無
+                example: "null"
+                      
+              wing_doors:
+                type: string
+                description: ウィング有無
+                example: "null"
+
+              refrigeration_unit:
+                type: string
+                description: 冷凍・冷蔵設備
+                example: "0"
+                      
+              temperature_range_min:
+                type: number
+                description: 温度範囲（下限）
+                example: "0"
+                      
+              temperature_range_max:
+                type: number
+                description: 温度範囲（上限）
+                example: "null"
+                      
+              crane_equipped:
+                type: string
+                description: クレーン付
+                example: "null"
+                      
+              vehicle_equipment_notes:
+                type: string
+                description: 車輌設備補足
+                example: "null"
+                      
+              master_data_start_date:
+                type: string
+                description: マスタ適用開始日
+                example: "20220101"
+                      
+              master_data_end_date:
+                type: string
+                description: マスタ適用終了日
+                example: "20990101"
+                  
+            required:
+              - bed_height
+              - cargo_height
+              - cargo_width
+              - cargo_length
+              - refrigeration_unit
+              - master_data_start_date
+              - master_data_end_date
+
+          max_carrying_capacity:
+            type: array
+            description: 最大積載能力
+            items:
+              type:  object
+              properties:
+                package_code:
+                  type: string
+                  description: 荷姿コード
+                  example: "null"
+                  
+                package_name_kanji:
+                  type: string
+                  description: 荷姿名（漢字）
+                  example: "null"
+                  
+                width:
+                  type: number
+                  description: 幅
+                  example: "null"
+                  
+                height:
+                  
+                  type: number
+                  description: 高さ
+                  example: "null"
+                depth:
+                  type: number
+                  description: 奥行き
+                  example: "null"
+                  
+                dimension_unit_code:
+                  type: string
+                  description: 寸法単位コード
+                  example: "null"
+                  
+                max_load_quantity:
+                  type: number
+                  description: 最大積載数
+                  example: "null"
+                  
+          hazardous_material_info:
+            type: array
+            description: 危険物情報
+            items:
+              type:  object
+              properties:
+                hazardous_material_item_code:
+                  type: string
+                  description: 危険物積載物品名コード
+                  example: "null"
+                  
+                hazardous_material_text_info:
+                  type: string
+                  description: 危険物文字情報
+                  example: "null"
+
+        required:
+          - vehicle_info
+          - motas_info
+          - vehicle_details
+          - max_carrying_capacity
+          - hazardous_material_info

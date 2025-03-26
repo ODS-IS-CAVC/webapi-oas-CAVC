@@ -1,0 +1,80 @@
+vehicles:
+  required:
+  - dataModelType
+  - attribute
+  type: object
+  description: 車両一覧データ
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: array
+      description: 車両一覧データモデル
+      items:
+        type: object
+        properties:
+          vehicleId:
+            type: string
+            format: uuid 
+            description: 自度運転車両を一意に識別するID
+            example: "78aa302c-1600-44b3-a331-e4659c0b28a1"
+          vehicleName:
+            type: string
+            minLength: 1
+            maxLength: 20 # 設定ない
+            description: 自動運転車両名
+            example: "vehicle1"
+          status:
+                type: string
+                description: 自動運転車両のステータス
+                enum:
+                  - disconnected
+                  - connected
+                  - initializing
+                  - task_acceptable
+                  - ready
+                  - driving
+                  - task_completed
+                  - abnormal
+                  - shutdown
+                example: "driving"
+          location:
+                type: object
+                description: 自動運転車両の位置情報
+                required:
+                  - lat
+                  - lng
+                  - height
+                properties:
+                  lat:
+                    type: number
+                    description: 緯度
+                    format: double
+                    minimum: -90
+                    maximum: 90
+                    example: 35.6242681254456
+                  lng:
+                    type: number
+                    description: 経度
+                    format: double
+                    minimum: -180
+                    maximum: 180
+                    example: 139.74258640456
+                  height:
+                    type: number
+                    description: 高度[m]
+                    format: double
+                    minimum: # 設定ない
+                    maximum: # 設定ない
+                    example: 0.01258640981
+          updatedAt:
+              type: string
+              description: テレメトリデータの更新時間
+              maxlength: 32 # 要確認
+              minlength: 32 # 要確認
+              example: "2014-10-10T04:50:40.000001+00:00"

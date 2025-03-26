@@ -1,0 +1,36 @@
+bus-stops:
+  get:
+    tags:
+      - busStops
+    description: 乗降地(バス停)モデルの全データを取得します。
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/busStops.yaml#/bus-stops"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"

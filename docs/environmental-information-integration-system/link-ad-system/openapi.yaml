@@ -1,0 +1,39 @@
+openapi: "3.0.3"
+info:
+  title: 自動運転車両管理API
+  version: "0.0.1"
+servers:
+  - url: https://api.server.test/v1
+tags:
+  - name: vehicles
+  - name: busStops
+  - name: routes
+
+paths:
+  /bus-stops:
+    $ref: "./paths/busStops.yaml#/bus-stops"
+  /vehicles:
+    $ref: "./paths/vehicles.yaml#/vehicles"
+  /vehicle-telemetry:
+    $ref: "./paths/vehicles.yaml#/vehicle-telemetry"
+  /vehicle-schedules:
+    $ref: "./paths/vehicles.yaml#/vehicle-schedules"
+  /vehicle-schedule:
+    $ref: "./paths/vehicles.yaml#/vehicle-schedule"
+  /routes:
+    $ref: "./paths/routes.yaml#/routes"
+
+components:
+  schemas:
+    bus-stops:
+      $ref: "./components/schemas/dataModel/busStops.yaml#/bus-stops"
+    vehicles:
+      $ref: "./components/schemas/dataModel/vehicles.yaml#/vehicles"
+    vehicle-telemetry:
+      $ref: "./components/schemas/dataModel/vehicleTelemetry.yaml#/vehicle-telemetry"
+    vehicle-schedules:
+      $ref: "./components/schemas/dataModel/vehicleSchedules.yaml#/vehicle-schedules"
+    vehicle-schedule:
+      $ref: "./components/schemas/dataModel/vehicleSchedule.yaml#/vehicle-schedule"
+    routes:
+      $ref: "./components/schemas/dataModel/routes.yaml#/routes"

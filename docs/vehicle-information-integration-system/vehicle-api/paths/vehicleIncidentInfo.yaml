@@ -1,0 +1,106 @@
+put:
+      tags:
+      - 車両情報連携システム
+      description: 車両インシデント情報登録
+      requestBody:
+        description: "車両インシデント情報"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/vehicleIncidentInfo.yaml#/vehicleIncidentInfo"
+      responses: 
+        "200":
+          description: OK
+        "400":
+          description: パラメータエラー
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -2
+                  timeStamp:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: XXXは必須入力パラメータです。
+        "401":
+          description: アクセストークン切れによるユーザー認証失敗が発生した場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -3
+                  timeStamp:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: ユーザー認証に失敗しました。
+        "403":
+          description: 登録対象の情報にアクセス権がない場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: -3
+                  timeStamp:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "対象日時"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: アクセス権限が確認できませんでした。
+        "500":
+          description: 外部APIとの通信失敗やデータベースアクセスエラーなどのシステムエラーの場合
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  result:
+                    description: "結果コード"
+                    type: integer
+                    format: int32
+                    example: 0
+                  timeStamp:
+                    type: string
+                    pattern: '^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}$'
+                    description: "タイムスタンプ"
+                    minLength: 19
+                    maxLength: 19
+                    example: "2024/01/01 00:00:00"   
+                  message:
+                    description: "異常内容のメッセージ"
+                    type: string
+                    example: システムエラーが発生しました。

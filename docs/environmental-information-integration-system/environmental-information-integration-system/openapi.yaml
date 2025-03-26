@@ -1,0 +1,50 @@
+openapi: "3.0.3"
+info:
+  title: 環境情報連携システムAPI
+  version: "0.0.1"
+servers:
+  - url: https://roadsideunit-info.jp
+paths:
+  /targetInfo:
+    $ref: "./paths/targetInfo/targetInfo.yaml"
+  /serviceLocationInfo:
+    $ref: "./paths/roadsideUnitMng/serviceLocationInfo.yaml"
+  /roadsideUnitInfo:
+    $ref: "./paths/roadsideUnitMng/roadsideUnitInfo.yaml"
+  /useCaseInfo:
+    $ref: "./paths/roadsideUnitMng/useCaseInfo.yaml"
+  /sensorInfo:
+    $ref: "./paths/roadsideUnitMng/sensorInfo.yaml"
+  /signalInfo:
+    $ref: "./paths/roadsideUnitMng/signalInfo.yaml"
+  /communicationMediaInfo:
+    $ref: "./paths/roadsideUnitMng/communicationMediaInfo.yaml"
+  /aliveMonitoringInfo:
+    $ref: "./paths/aliveMonitoring/aliveMonitoringInfo.yaml"
+components:
+  schemas:
+    dataModel.targetInfo:
+      $ref: "./components/schemas/dataModel/targetInfo.yaml#/targetInfo"
+    dataModel.serviceLocationInfo:
+      $ref: "./components/schemas/dataModel/serviceLocationInfo.yaml#/serviceLocationInfo"
+    dataModel.roadsideUnitInfo:
+      $ref: "./components/schemas/dataModel/roadsideUnitInfo.yaml#/roadsideUnitInfo"
+    dataModel.useCaseInfo:
+      $ref: "./components/schemas/dataModel/useCaseInfo.yaml#/useCaseInfo"
+    dataModel.sensorInfo:
+      $ref: "./components/schemas/dataModel/sensorInfo.yaml#/sensorInfo"
+    dataModel.signalInfo:
+      $ref: "./components/schemas/dataModel/signalInfo.yaml#/signalInfo"
+    dataModel.communicationMediaInfo:
+      $ref: "./components/schemas/dataModel/communicationMediaInfo.yaml#/communicationMediaInfo"
+    dataModel.aliveMonitoringInfo:
+      $ref: "./components/schemas/dataModel/aliveMonitoringInfo.yaml#/aliveMonitoringInfo"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
+    Authorization:
+      type: http
+      scheme: bearer
+      description: アクセストークン発行APIで発行したアクセストークン

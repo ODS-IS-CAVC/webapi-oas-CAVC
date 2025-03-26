@@ -1,0 +1,116 @@
+get:
+  tags:
+    - 共同配送システム
+  summary: 指定した車輌種別の車輛マスタを取得
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API111
+  description: 指定した車輌種別に基づいて、車輛マスタを取得します。
+  parameters:
+    - name: vehicle_type
+      in: query
+      required: true
+      description: 取得したい車輌種別
+      schema:
+        type: string
+  responses:
+    "200":
+      description: 指定した車輌種別に基づいて、車輛マスタを正常に取得しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+            
+      content:
+        application/json:
+          schema:
+            $ref: "../../components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle"
+
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合
+
+put:
+  tags:
+    - 共同配送システム
+  summary: 車輛マスタを登録
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API121
+  description: 車輛マスタを登録します。
+  requestBody:
+    description: "車両マスタ"
+    required: true
+    content:
+      application/json:
+        schema:
+          #type: "object"
+          #properties:
+          $ref: "../../components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle"
+      
+  responses:
+    "201":
+      description: 車輛マスタを正常に登録しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合
+
+delete: 
+  tags:
+    - 共同配送システム
+  summary: 車輛マスタを削除
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API124
+  description: 車輛マスタを削除します。
+
+  parameters:
+    - name: giai
+      in: query
+      required: true
+      description: 削除したいGIAI
+      schema:
+        type: string
+
+  #requestBody:
+  #  description: "車両インシデント情報"
+  #  required: true
+  #  content:
+  #    application/json:
+  #      schema:
+  #        #type: "object"
+  #        #properties:
+  #        $ref: "../../components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle"
+      
+  responses:
+    "200":
+      description: 車輛マスタを正常に削除しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合

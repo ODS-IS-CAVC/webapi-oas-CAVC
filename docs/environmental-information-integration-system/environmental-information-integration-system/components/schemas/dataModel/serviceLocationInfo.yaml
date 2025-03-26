@@ -1,0 +1,121 @@
+serviceLocationInfo:
+  type: object
+  description: サービス地点の路側機情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: サービス地点情報要素
+      required:
+        - updateTimeInfo
+        - formatVersion
+        - serviceLocationID
+        - latitude
+        - longitude
+        - elevation
+        - approachAttributeSize
+        - approachAttributeInfo
+        - roadsideUnitList
+      properties:
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        latitude:
+          type: integer
+          format: int32
+          description: 'サービス地点の緯度情報．計測系はWGS84．北緯をプラス, 南緯をマイナスで表現(分解能:0.0000001度)'
+          minimum: -2147483648
+          maximum: 900000000
+          example: 123456789
+        longitude:
+          type: integer
+          format: int32
+          description: 'サービス地点の経度情報．計測系はWGS84．東経をプラス, 西経をマイナスで表現(分解能:0.0000001度)'
+          minimum: -2147483648
+          maximum: 1800000000
+          example: 1234567891
+        elevation:
+          type: integer
+          format: int32
+          description: 'サービス地点の基準面からの高さ情報(単位:m) (分解能:0.1m)'
+          minimum: -4095
+          maximum: 61440
+          example: 123
+        approachAttributeSize:
+          type: integer
+          format: int32
+          description: 交差点に接続されている道路数
+          minimum: 0
+          maximum: 15
+          example: 4
+        approachAttributeInfo:
+          type: array
+          minItems: 0
+          maxItems: 15
+          items:
+            type: object
+            required:
+              - approachID
+              - approachHeading
+            properties:
+              approachID:
+                type: integer
+                format: int32
+                description: 交差点内でユニークに，真北から時計回りに付与される方路のID
+                minimum: 1
+                maximum: 15
+                example: 1
+              approachHeading:
+                type: integer
+                format: int32
+                description: '方路付け根から10m程度上流地点から付け根を結んだ直線の角度 (分解能: 1.5度)'
+                minimum: 0
+                maximum: 239
+                example: 100
+        roadsideUnitList:
+          type: array
+          minItems: 0
+          maxItems: 15
+          items:
+            type: object
+            required:
+              - roadsideUnitID
+              - roadsideUnitClassification
+            properties:
+              roadsideUnitID:
+                type: integer
+                format: int64
+                description: 路側機ID
+                minimum: 0
+                maximum: 4294967295
+                example: 12345678
+              roadsideUnitClassification:
+                type: integer
+                format: int32
+                description: 路側機種別
+                minimum: 0
+                maximum: 7
+                example: 1
+              

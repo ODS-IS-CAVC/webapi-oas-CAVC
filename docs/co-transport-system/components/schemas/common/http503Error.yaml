@@ -1,0 +1,16 @@
+HTTP503Error:
+  type: object
+  description: HTTP503エラー
+  properties:
+    code:
+      type: string
+      description: エラーステータス
+      example: "[dataspace] ServiceUnavailable"
+    message:
+      type: string
+      description: エラーメッセージ
+      example: Unexpected error occurred in outer service
+    detail:
+      type: string
+      description: エラー詳細（タイムスタンプ）
+      example: "timeStamp:2023-09-25T14:30:00Z"

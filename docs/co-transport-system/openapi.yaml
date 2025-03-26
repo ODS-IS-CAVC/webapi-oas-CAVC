@@ -1,0 +1,79 @@
+openapi: "3.0.3"
+info:
+  title: 共同輸送システムAPI
+  version: "0.0.2"
+  description: |
+
+servers:
+  - url: https://api.server.test/v1
+security:
+  - ApiKeyAuth: []
+    Authorization: []
+paths:
+  /trsp_ability_line_item:
+    $ref: "./paths/trsp_ability_line_item.yaml"
+  # 共同配送システム
+  /vehicle:
+    $ref: "./paths/共同配送システム/vehicle.yaml"
+  /shipper_trans_capacity:
+    $ref: "./paths/共同配送システム/shipper_trans_capacity.yaml"
+  /carrier_trans_request:
+    $ref: "./paths/共同配送システム/carrier_trans_request.yaml"
+  /carrier_trans_capacity:
+    $ref: "./paths/共同配送システム/carrier_trans_capacity.yaml"
+  ##
+  /vehicle_del:
+    $ref: "./paths/共同配送システム/vehicle_del.yaml"
+  /shipper_trans_capacity_del:
+    $ref: "./paths/共同配送システム/shipper_trans_capacity_del.yaml"
+  /carrier_trans_request_del:
+    $ref: "./paths/共同配送システム/carrier_trans_request_del.yaml"
+  /carrier_trans_capacity_del:
+    $ref: "./paths/共同配送システム/carrier_trans_capacity_del.yaml"
+
+components:
+  schemas:
+    dataModel.trsp_ability_line_item:
+      $ref: "./components/schemas/dataModel/trsp_ability_line_item.yaml#/trsp_ability_line_item"
+    # 共同配送システム
+    dataModel.vehicle:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle"
+    dataModel.shipper_trans_capacity:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity" 
+    dataModel.carrier_trans_request:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel3012.yaml#/carrier_trans_request"
+    dataModel.carrier_trans_capacity:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel3012.yaml#/carrier_trans_capacity"
+    ##
+    dataModel.vehicle_del:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel0001.yaml#/vehicle_del"
+    dataModel.shipper_trans_capacity_del:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel5001.yaml#/shipper_trans_capacity_del" 
+    dataModel.carrier_trans_request_del:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel3012.yaml#/carrier_trans_request_del"
+    dataModel.carrier_trans_capacity_del:
+      $ref: "./components/schemas/dataModel/共同配送システム/dataModel3012.yaml#/carrier_trans_capacity_del"
+
+    # エラーレスポンス
+    common.http400Error:
+      $ref: "./components/schemas/common/http400Error.yaml#/HTTP400Error"
+    common.http401Error:
+      $ref: "./components/schemas/common/http401Error.yaml#/HTTP401Error"
+    common.http404Error:
+      $ref: "./components/schemas/common/http404Error.yaml#/HTTP404Error"
+    common.http500Error:
+      $ref: "./components/schemas/common/http500Error.yaml#/HTTP500Error"
+    common.http503Error:
+      $ref: "./components/schemas/common/http503Error.yaml#/HTTP503Error"
+
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
+    Authorization:
+      type: http
+      scheme: bearer
+      description: アクセストークン発行APIで発行したアクセストークン
+
+  

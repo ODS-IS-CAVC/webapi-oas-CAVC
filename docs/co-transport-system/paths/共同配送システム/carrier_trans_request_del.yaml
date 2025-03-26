@@ -1,0 +1,35 @@
+put:
+  tags:
+    - 共同配送システム
+  summary: 運送計画情報（明細型）を削除　暫定対応
+  security:
+    - ApiKeyAuth: []
+    - Authorization: []
+  #operationId: API221
+  description: 運送計画情報（明細型）を削除します。
+          
+  requestBody:
+    description: "運送計画情報（明細型）"
+    required: true
+    content:
+      application/json:
+        schema:
+          #type: "object"
+          #properties:
+          $ref: "../../components/schemas/dataModel/共同配送システム/dataModel3012.yaml#/carrier_trans_request_del"
+      
+  responses:
+    "201":
+      description: 運送計画情報（明細型）を正常に削除しました。
+      headers:
+        X-Tracking:
+          description: トラッキングID
+          schema:
+            type: string
+            format: uuid
+    "400":
+      $ref: "../../components/schemas/common/http400Error.yaml#/HTTP400Error"
+      description: リクエスト自体に問題がある場合
+    "500":
+      $ref: "../../components/schemas/common/http500Error.yaml#/HTTP500Error"
+      description: システムの内部にてエラーが発生している場合

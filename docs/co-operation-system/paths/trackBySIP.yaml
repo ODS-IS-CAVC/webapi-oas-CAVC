@@ -1,0 +1,149 @@
+put:
+  tags:
+    - 車両情報連携システム
+  summary: Update or Create TrackBySIP
+  security:
+    - ApiKeyAuth: [ ]
+    - Authorization: [ ]
+  description: update a new track resource by SIP format. When 200, no response body is returned. |
+    SIP標準メッセージレイアウトの運送依頼請け情報を受取るAPIです。
+    運送依頼請け情報の必須項目はすべて受け取れるようになっています。REQUEST BODY SCHEMAに記した以外の項目は無視されます。
+    正常に処理された場合、レスポンスボディは空となります。
+  parameters:
+    - name: X-TENANT-ID
+      in: header
+      description: Tenant ID (こちらから提供した固定値を入れていただく予定です。)
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/TrackBySip"
+  responses:
+    "200":
+      description: Request processed successfully with no response body.
+    "400":
+      description: Bad Request - The server could not understand the request due to invalid syntax.
+    "401":
+      description: Unauthorized - Authentication is required and has failed or has not yet been provided.
+    "403":
+      description: Forbidden - The client does not have access rights to the content.
+    "404":
+      description: Not Found - The server could not find the requested resource.
+    "500":
+      description: Internal Server Error - The server encountered an unexpected condition that prevented it from fulfilling the request.
+
+components:
+  schemas:
+    TrackBySip:
+      type: object
+      required:
+        - attribute
+      properties:
+        dataModelType:  # テンプレから変更なし
+          type: string
+          description: "データモデルタイプ"
+          enum:
+            - test1
+            - test2
+          example: test1
+        attribute:
+          type: object  
+          required:
+            - is_create
+            - trsp_isr
+            - mh_reservation_id
+            - trsp_srvc
+            - logs_srvc_prv
+            - ship_from_prty
+            - ship_to_prty  
+          properties:
+            is_create:
+              type: boolean
+              description: "新規作成の場合: true。更新場合：false"
+              example: true
+            trsp_isr:
+              type: object
+              properties:
+                trsp_instruction_id:
+                  type: string
+                  description: Transport instruction ID
+                  minLength: 1
+                  maxLength: 20
+                  example: "1234567891234567890"
+              required:
+                - trsp_instruction_id
+            mh_reservation_id:
+              type: string
+              description: モビリティーハブ予約 ID
+              example: "A0JYEyM3-21453354856"
+            trsp_srvc:
+              type: object
+              description: Transport service. Pickup and dropoff time information.|
+                積荷日時と着荷日時。from と to の両方をは使わず、片方のみを使用します。
+              required:
+                - dsed_cll_from_date
+                - dsed_cll_from_time
+                - aped_arr_from_date
+                - aped_arr_from_time_prfm_dttm  
+              properties:
+                dsed_cll_from_date:
+                  type: string
+                  description: Pickup date
+                  pattern: "^[0-9]{8}$"
+                  example: "20241113"
+                dsed_cll_from_time:
+                  type: string
+                  description: Pickup time in hhmm format
+                  pattern: "^[0-9]{4}$"
+                  example: "0915"
+                aped_arr_from_date:
+                  type: string
+                  description: Dropoff date
+                  pattern: "^[0-9]{8}$"
+                  example: "20241113"
+                aped_arr_from_time_prfm_dttm:
+                  type: string
+                  description: Dropoff time in hhmm format
+                  pattern: "^[0-9]{4}$"
+                  example: "1430"
+            logs_srvc_prv:
+              type: object
+              required:
+                - logs_srvc_prv_prty_name_txt
+              properties:
+                logs_srvc_prv_prty_name_txt:
+                  type: string
+                  description: Logistics service provider name
+                  minLength: 1
+                  maxLength: 320
+                  example: "ABC Service Provider"
+
+            ship_from_prty:
+              type: object
+              required:
+                - ship_from_prty_brnc_off_id              
+              properties:
+                ship_from_prty_brnc_off_id:
+                  type: string
+                  description: Pickup branch office ID |
+                    今回のPoCではIDのみサポートしています。
+                  minLength: 1
+                  maxLength: 17
+                  example: location_1
+            ship_to_prty:
+              type: object
+              required:
+                - ship_to_prty_brnc_off_id              
+              properties:
+                ship_to_prty_brnc_off_id:
+                  type: string
+                  description: Dropoff branch office ID |
+                    今回のPoCではIDのみサポートしています。
+                  minLength: 1
+                  maxLength: 17
+                  example: location_2
+

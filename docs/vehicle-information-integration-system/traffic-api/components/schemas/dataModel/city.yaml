@@ -1,0 +1,7 @@
+city:
+  type: number
+  description: 行政区画コード データモデル
+  format: int32
+  minimum: -2147483648
+  maximum: 2147483647
+  example:  01203

@@ -1,0 +1,157 @@
+roadsideUnitInfo:
+  type: object
+  description: 路側機属性情報
+  properties:
+    dataModelType:
+      type: string
+      description: データモデルタイプ
+      enum:
+        - test1
+        - test2
+      example: test1
+    attribute:
+      type: object
+      description: 路側機情報要素
+      required:
+        - serviceLocationID
+        - roadsideUnitID
+        - updateTimeInfo
+        - formatVersion
+        - roadsideUnitName
+        - productNumber
+        - licensingInfo
+        - initialRegistrationDate
+        - powerConsumption
+        - grossWeight
+        - materialType
+        - dateOfInstallation
+        - latitude
+        - longitude
+        - roadsideUnitManager
+        - installationSiteManager
+        - lastInspectionDate
+        - nextInspectionDate
+      properties:
+        serviceLocationID:
+          type: integer
+          format: int64
+          description: サービス地点ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        roadsideUnitID:
+          type: integer
+          format: int64
+          description: 路側機ID
+          minimum: 0
+          maximum: 4294967295
+          example: 12345678
+        updateTimeInfo:
+          type: string
+          format: date-time
+          description: 最新更新時刻(UTC)
+          example: 2024-01-23T01:23:45.678Z
+        formatVersion:
+          type: integer
+          format: int32
+          description: フォーマットバージョン
+          minimum: 0
+          maximum: 65535
+          example: 1
+        roadsideUnitName:
+          type: string
+          description: 路側機名称
+          minLength: 1
+          maxLength: 255
+          example: 路側機01
+        productNumber:
+          type: string
+          description: 路側機型番
+          minLength: 1
+          maxLength: 255
+          example: RSU-01
+        manufacturer:
+          type: string
+          description: 路側機製造者
+          minLength: 1
+          maxLength: 255
+          example: SMICIP
+        customer:
+          type: string
+          description: 路側機発注者
+          minLength: 1
+          maxLength: 255
+          example: SMICIP
+        licensingInfo:
+          type: string
+          description: 認可関連情報
+          minLength: 1
+          maxLength: 255
+          example: "011"
+        initialRegistrationDate:
+          type: string
+          format: date
+          description: 路側機初期登録日
+          example: 2024-01-23
+        powerConsumption:
+          type: integer
+          format: int32
+          description: 路側機全体の年間消費電力量(kWh)
+          minimum: 0
+          maximum: 65535
+          example: 123
+        grossWeight:
+          type: integer
+          format: int32
+          description: 路側機総重量(kg)
+          minimum: 0
+          maximum: 65535
+          example: 1234
+        materialType:
+          type: integer
+          format: int32
+          description: 路側機構成素材
+          minimum: 0
+          maximum: 15
+          example: 1
+        dateOfInstallation:
+          type: string
+          format: date
+          description: 路側機設置年月日
+          example: 2024-01-23
+        latitude:
+          type: integer
+          format: int32
+          description: '路側機が設置された場所の緯度情報．計測系はWGS84．北緯をプラス, 南緯をマイナスで表現(分解能:0.0000001度)'
+          minimum: -2147483648
+          maximum: 900000000
+          example: 123456789
+        longitude:
+          type: integer
+          format: int32
+          description: '路側機が設置された場所の経度情報．計測系はWGS84．東経をプラス, 西経をマイナスで表現(分解能:0.0000001度)'
+          minimum: -2147483648
+          maximum: 1800000000
+          example: 1234567891
+        roadsideUnitManager:
+          type: string
+          description: 路側機管理者
+          minLength: 1
+          maxLength: 255
+          example: SMICIP
+        installationSiteManager:
+          type: string
+          description: 路側機を設置した土地の管理者
+          minLength: 1
+          maxLength: 255
+          example: SMICIP
+        lastInspectionDate:
+          type: string
+          format: date
+          description: 最終点検日
+          example: 2024-01-23
+        nextInspectionDate:
+          type: string
+          format: date
+          description: 次回点検日
+          example: 2025-01-23

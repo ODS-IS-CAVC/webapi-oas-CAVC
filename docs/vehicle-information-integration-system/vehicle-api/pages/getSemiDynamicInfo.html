@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>車両情報連携システム API</title>
+        <style>
+            .back-button {
+                position: fixed;
+                top: 10px;
+                right: 10px;
+                padding: 10px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 14px;
+            }
+            .required {
+                color: red;
+            }
+        </style>
+    
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:_dlc_DocId msdt:dt="string">P3PKPUJ25TSK-101339327-9578</mso:_dlc_DocId>
+<mso:_dlc_DocIdItemGuid msdt:dt="string">7d1dd35f-d7e6-4315-8afc-5292d967bca7</mso:_dlc_DocIdItemGuid>
+<mso:_dlc_DocIdUrl msdt:dt="string">https://nttdatajpprod.sharepoint.com/sites/NEDO763/_layouts/15/DocIdRedir.aspx?ID=P3PKPUJ25TSK-101339327-9578, P3PKPUJ25TSK-101339327-9578</mso:_dlc_DocIdUrl>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">戻る</a>
+    <h1>準動的情報取得APIリクエストパラメータ詳細</h1>
+    <p>準動的情報取得で利用するリクエストパラメータのJSONの内容を以下に記載する。</p>
+    
+    <h2>パラメータ</h2>
+    <ul>
+        <li>
+            <strong>targetTime</strong> (string, date-time, <span class="required">必須</span>)
+            <ul>
+                <li>説明: 要求対象のデータの日時</li>
+                <li>例: 2024/01/01 00:00:00</li>
+            </ul>
+        </li>
+        <li>
+            <strong>requestInfo</strong> (array, <span class="required">必須</span>)
+            <ul>
+                <li>説明: 検索するデータのリスト</li>
+                <li>項目:
+                    <ul>
+                        <li><strong>targetData</strong> (integer, int32)
+                            <ul>
+                                <li>説明: 要求するデータを指定する。1:渋滞情報、2:事象規制情報、3:気象情報、4:待避エリア満空情報</li>
+                                <li>例: 1</li>
+                            </ul>
+                        </li>
+                        <li><strong>requestFormat</strong> (integer, int32)
+                            <ul>
+                                <li>説明: 要求対象範囲の形式を指定する。1:空間ID、2:緯度経度(bbox)</li>
+                                <li>例: 1</li>
+                            </ul>
+                        </li>
+                        <li><strong>requestArea</strong> (object)
+                            <ul>
+                                <li>説明: データの要求範囲を指定する。requestFormatで指定した形式の要求範囲を入力すること。</li>
+                                <li>プロパティ:
+                                    <ul>
+                                        <li><strong>spatialID</strong> (string)
+                                            <ul>
+                                                <li>説明: 空間ID(z/f/x/y)</li>
+                                                <li>例: 22/1/931369/413142</li>
+                                            </ul>
+                                        </li>
+                                        <li><strong>bbox</strong> (array)
+                                            <ul>
+                                                <li>説明: バウンディングボックス（矩形領域座標）データモデル。「SW(経度), SW(緯度), NE(経度), NE(緯度)」</li>
+                                                <li>例: [139.681994465, 35.50676814, 139.681985082, 35.506773265]</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <h2>備考</h2>
+    <ul>
+        <li>requestInfoを同じtargetDataで複数要求し、そのrequestAreaが重複していた場合、応答情報に同一の情報が複数含まれる可能性があります</li> 
+    </ul>
+</body>
+</html>

@@ -1,0 +1,43 @@
+openapi: "3.0.3"
+info:
+  title: 車両情報連携システム
+  version: "0.0.1"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /facade:
+    $ref: "./paths/Facade.yaml"
+  /resources:
+    $ref: "./paths/Resources.yaml"
+  /fileattributes:
+    $ref: "./paths/FileAttributes.yaml"
+security:
+  - ApiKeyAuth: []
+    Authorization: []
+components:
+  schemas:
+    dataModel.BBox:
+      $ref: "./components/schemas/dataModel/bbox.yaml#/bbox"
+    dataModel.Voxel:
+      $ref: "./components/schemas/dataModel/Voxel.yaml#/voxel"
+    dataModel.Mesh:
+      $ref: "./components/schemas/dataModel/mesh.yaml#/mesh"
+    dataModel.City:
+      $ref: "./components/schemas/dataModel/city.yaml#/city"
+    dataModel.Coordinates:
+      $ref: "./components/schemas/dataModel/Coordinates.yaml#/coordinates"
+    dataModel.Facade:
+      $ref: "./components/schemas/dataModel/Facade.yaml#/facade"
+    dataModel.Resources:
+      $ref: "./components/schemas/dataModel/Resources.yaml#/resources"
+    dataModel.FileAttributes:
+      $ref: "./components/schemas/dataModel/FileAttributes.yaml#/fileattributes"
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      name: apiKey
+      in: header
+    Authorization:
+      type: http
+      scheme: bearer
+      description: アクセストークン発行APIで発行したアクセストークン

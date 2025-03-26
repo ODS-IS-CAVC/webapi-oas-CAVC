@@ -1,0 +1,166 @@
+vehicles:
+  get:
+    tags:
+      - vehicles
+    description: 自動運転車両モデルの全データを取得します。
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/vehicles.yaml#/vehicles"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"
+vehicle-telemetry:
+  get:
+    tags:
+      - vehicles
+    description: 1台の自動運転車両のTelemetryデータを取得します。
+    parameters:
+      - name: vehicle_id
+        in: query
+        required: true
+        description: The vehicle identifier to retrieve the vehicle.
+        schema:
+          type: string
+          format: uuid
+        example: 5b078865-ab8a-422d-aa11-1437907dae32
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/vehicleTelemetry.yaml#/vehicle-telemetry"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"
+vehicle-schedules:
+  get:
+    tags:
+      - vehicles
+    description: 自動運転車両のスケジュールを取得します。
+    parameters:
+      - name: vehicle_id
+        in: query
+        required: true
+        description: The vehicle identifier to retrieve the vehicle.
+        schema:
+          type: string
+          format: uuid
+        example: 5b078865-ab8a-422d-aa11-1437907dae32
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/vehicleSchedules.yaml#/vehicle-schedules"
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"
+vehicle-schedule:
+  post:
+    tags:
+      - vehicles
+    description: 自動運転車両のスケジュールを登録します。
+    parameters: []
+    requestBody:
+        description: Register a schedule.
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/vehicleSchedule.yaml#/vehicle-schedule"
+        required: true
+    responses:
+      "201":
+        description: Created
+      "400":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/400.yaml#/error"
+      "401":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/401.yaml#/error"
+      "500":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/500.yaml#/error"
+      "503":
+        description: Bad Request
+        content:
+          application/json:
+            schema:
+              $ref: "../components/schemas/dataModel/503.yaml#/error"
